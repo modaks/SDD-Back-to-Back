@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="358dp"
+        android:layout_height="291dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="161dp"
+        android:layout_height="47dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="$1 - A small dress"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal|bottom" />
+
+</FrameLayout>

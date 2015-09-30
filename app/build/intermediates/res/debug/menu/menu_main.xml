@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_main"
+        android:title="Menu" />
+    <item
+        android:id="@+id/menu_clothes"
+        android:title="Clothes" />
+    <item
+        android:id="@+id/menu_liked"
+        android:title="Clothes Liked" />
+    <item
+        android:id="@+id/menu_filters"
+        android:title="Filters" />
+    <item
+        android:id="@+id/menu_search"
+        android:title="Search" />
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Logout"
+        android:showAsAction="ifRoom"   />
+</menu>
+<!-- From: file:/root/AndroidStudioProjects/MyApplication/app/src/main/res/menu/menu_main.xml -->
