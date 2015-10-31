@@ -4,12 +4,6 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:layout_width="358dp"
-        android:layout_height="291dp"
-        android:id="@+id/imageView"
-        android:layout_gravity="center" />
-
     <TextView
         android:layout_width="161dp"
         android:layout_height="47dp"
@@ -17,5 +11,36 @@
         android:text="$1 - A small dress"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal|bottom" />
+
+    <ImageButton
+        android:layout_width="220dp"
+        android:layout_height="300dp"
+        android:id="@+id/center_image"
+        android:layout_gravity="center"
+        android:contextClickable="true"
+        android:onClick="buttonToDetailed"
+        android:background="@drawable/pants"
+        android:scaleType="fitXY"/>
+
+    <ImageButton
+        android:layout_width="59dp"
+        android:layout_height="49dp"
+        android:id="@+id/left_image"
+        android:layout_gravity="left|center_vertical"
+        android:foreground="@drawable/x"
+        android:contextClickable="true"
+        android:onClick="buttonOnClick"
+        android:scaleType="fitXY"
+        android:background="@null"/>
+
+    <ImageButton
+        android:layout_width="53dp"
+        android:layout_height="44dp"
+        android:id="@+id/right_image"
+        android:layout_gravity="right|center_vertical"
+        android:contextClickable="true"
+        android:onClick="buttonOnClick"
+        android:scaleType="fitXY"
+        android:background="@null"/>
 
 </FrameLayout>

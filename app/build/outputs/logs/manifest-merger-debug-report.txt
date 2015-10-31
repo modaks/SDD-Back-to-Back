@@ -13,6 +13,10 @@ ADDED from AndroidManifest.xml:2:1
 	android:versionCode
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
+uses-permission#android.permission.INTERNET
+ADDED from AndroidManifest.xml:4:5
+	android:name
+		ADDED from AndroidManifest.xml:4:22
 application
 ADDED from AndroidManifest.xml:5:5
 MERGED from com.android.support:appcompat-v7:23.0.1:22:5

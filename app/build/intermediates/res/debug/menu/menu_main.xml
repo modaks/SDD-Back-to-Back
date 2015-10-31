@@ -11,6 +11,9 @@
         android:id="@+id/menu_main"
         android:title="Menu" />
     <item
+        android:id="@+id/detail_main"
+        android:title="Detailed Page Example" />
+    <item
         android:id="@+id/menu_clothes"
         android:title="Clothes" />
     <item
@@ -24,7 +27,6 @@
         android:title="Search" />
     <item
         android:id="@+id/menu_logout"
-        android:title="Logout"
-        android:showAsAction="ifRoom"   />
+        android:title="Logout" />
 </menu>
-<!-- From: file:/root/AndroidStudioProjects/MyApplication/app/src/main/res/menu/menu_main.xml -->
+<!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/menu/menu_main.xml -->

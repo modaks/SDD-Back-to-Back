@@ -10,4 +10,4 @@
         android:id="@+id/textView5"
         android:layout_gravity="center_horizontal|top" />
 </FrameLayout>
-<!-- From: file:/root/AndroidStudioProjects/MyApplication/app/src/main/res/layout/search_main.xml -->
+<!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/search_main.xml -->

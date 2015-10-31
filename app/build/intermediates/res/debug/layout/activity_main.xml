@@ -37,5 +37,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_above="@+id/textView2"
+        android:layout_alignRight="@+id/editText"
+        android:layout_alignEnd="@+id/editText"
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText"
+        android:layout_alignParentTop="true" />
+
 </RelativeLayout>
-<!-- From: file:/root/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml -->
+<!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/activity_main.xml -->

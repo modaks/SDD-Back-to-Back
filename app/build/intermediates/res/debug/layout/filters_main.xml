@@ -11,4 +11,4 @@
         android:text="Filters"
         android:id="@+id/textView4" />
 </LinearLayout>
-<!-- From: file:/root/AndroidStudioProjects/MyApplication/app/src/main/res/layout/filters_main.xml -->
+<!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/filters_main.xml -->
