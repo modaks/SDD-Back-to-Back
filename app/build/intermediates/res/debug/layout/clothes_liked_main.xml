@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:weightSum="1">
 
     <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="363dp"
+        android:id="@+id/listView"
+        android:contextClickable="true"
+        android:layout_span="2"
+        android:alpha=".95"
+        android:background="@null"
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_weight="1"
-        android:contextClickable="true"
-        android:layout_span="2" />
-</TableRow>
+        android:text="Back to Swiping"
+        android:id="@+id/button3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="buttonToSwiping" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="RECENTLY LIKED CLOTHING"
+        android:id="@+id/textView3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
 <!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/clothes_liked_main.xml -->

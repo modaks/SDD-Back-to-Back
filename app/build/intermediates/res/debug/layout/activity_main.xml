@@ -37,16 +37,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp" />
 
-    <ImageView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_above="@+id/textView2"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
-        android:layout_alignParentTop="true" />
+        android:text="Login"
+        android:id="@+id/button"
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true"
+        android:onClick="buttonToSwiping" />
 
 </RelativeLayout>
 <!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/activity_main.xml -->

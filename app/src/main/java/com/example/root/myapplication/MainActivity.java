@@ -9,13 +9,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckedTextView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -34,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton iv;
     private Bitmap bitmap;
 
+    // Store the location of the clothes
+    private int location_of_clothes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        // Set current bitmap image
+        bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
+
         //View rootView = getMenuInflater().inflate(swiping_main);
         //b1 = (ImageButton) findViewById((R.id.center_image));
-
     }
 
     @Override
@@ -54,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+
 
     public void buttonOnClick(View v){
         iv = (ImageButton) findViewById((R.id.center_image));
@@ -67,18 +78,44 @@ public class MainActivity extends AppCompatActivity {
             iv.setImageBitmap(bitmap);
         }
         count += 1;
-        //b1.setBackground(getDrawable(x));
-        //setContentView(R.layout.detail_main);
-        //b1.setBackground(R.drawable.x);
+
     }
 
+    // Go to the detailed page and load the current bitmap image
     public void buttonToDetailed(View v){
-
         setContentView(R.layout.detail_main);
-
         iv = (ImageButton) findViewById(R.id.imageButton4);
-        bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
         iv.setImageBitmap(bitmap);
+
+        TextView field = (TextView) findViewById(R.id.Price);
+        field.append("15");
+        field = (TextView) findViewById(R.id.Brand);
+        field.append("N/A");
+        field = (TextView) findViewById(R.id.Type);
+        field.append("Scarf");
+        field = (TextView) findViewById(R.id.Description);
+        field.append("A nice scarf to wear");
+
+    }
+
+    // Go to the swiping page
+    public void buttonToSwiping(View v){
+        setContentView(R.layout.swiping_main);
+
+        // Set checkmark image
+        iv = (ImageButton) findViewById(R.id.right_image);
+        Bitmap temp_bitmap = getBitmapFromURL("http://www.clipartbest.com/cliparts/niE/LL8/niELL86iA.png");
+        iv.setImageBitmap(temp_bitmap);
+
+        // Set x image
+        iv = (ImageButton) findViewById(R.id.left_image);
+        temp_bitmap = getBitmapFromURL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/X_mark.svg/896px-X_mark.svg.png");
+        iv.setImageBitmap(temp_bitmap);
+
+        // Set Center Image
+        iv = (ImageButton) findViewById(R.id.center_image);
+        temp_bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
+        iv.setImageBitmap(temp_bitmap);
 
     }
 
@@ -120,32 +157,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_main) {
+        if (id == R.id.menu_logout) {
             setContentView(R.layout.activity_main);
-            return true;
-        }else if(id == R.id.menu_clothes){
-            setContentView(swiping_main);
-
-            // Set center image
-            iv = (ImageButton) findViewById(R.id.center_image);
-            bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
-            iv.setImageBitmap(bitmap);
-
-            // Set check image
-            iv = (ImageButton) findViewById(R.id.right_image);
-            bitmap = getBitmapFromURL("http://www.clipartbest.com/cliparts/niE/LL8/niELL86iA.png");
-            iv.setImageBitmap(bitmap);
-
-            // Set x image
-            iv = (ImageButton) findViewById(R.id.left_image);
-            bitmap = getBitmapFromURL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/X_mark.svg/896px-X_mark.svg.png");
-            iv.setImageBitmap(bitmap);
-
             return true;
         }else if(id == R.id.menu_liked){
             setContentView(R.layout.clothes_liked_main);
 
-            String[] myStringArray={"Most recently liked clothes","Pants from Walmart","Shirt"};
+            String[] myStringArray={"Pants","Wu Tang Shirt", "Nikes", "Black Skinny Jeans", "Blue Skinny Jeans"};
             ArrayAdapter<String> myAdapter=new
                     ArrayAdapter<String>(
                     this,
@@ -155,20 +173,49 @@ public class MainActivity extends AppCompatActivity {
                     findViewById(R.id.listView);
             myList.setAdapter(myAdapter);
 
+            myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView parent,
+                                        View v,
+                                        int position,
+                                        long id) {
+                    if(position == 0){
+                        bitmap = getBitmapFromURL("http://cdn.fluidretail.net/customers/c1500/P51050/P51050_pdp/zoom_variation_251_view_A_2192x2200.jpg");
+                    }else if(position == 1){
+                        bitmap = getBitmapFromURL("http://content.backcountry.com/images/items/medium/MAR/MAR2242/DESKH.jpg");
+                    }
+                    buttonToDetailed(v);
+                }
+            });
+
             return true;
         }else if(id == R.id.menu_filters){
             setContentView(R.layout.filters_main);
-            return true;
-        }else if(id == R.id.menu_search){
-            setContentView(R.layout.search_main);
-            return true;
-        }else if(id == R.id.detail_main){
-            setContentView(R.layout.detail_main);
+
+            String[] myStringArray={"Shirts", "Pants", "Shoes", "Socks", "Hats", "Undergarments", "Miscellaneous"};
+            ArrayAdapter<String> myAdapter=new
+                    ArrayAdapter<String>(
+                    this,
+                    android.R.layout.simple_list_item_checked,
+                    myStringArray);
+            ListView myList=(ListView)
+                    findViewById(R.id.listView2);
+            myList.setAdapter(myAdapter);
+
+            myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView parent,
+                                        View v,
+                                        int position,
+                                        long id) {
+
+                    CheckedTextView textView = (CheckedTextView)v;
+                    textView.setChecked(!textView.isChecked());
+
+                }
+            });
+
 
             return true;
         }
-
-
 
         return super.onOptionsItemSelected(item);
     }

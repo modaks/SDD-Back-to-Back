@@ -8,7 +8,7 @@
         android:layout_width="161dp"
         android:layout_height="47dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="$1 - A small dress"
+        android:text="$5 - A Scarf"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal|bottom" />
 
@@ -19,15 +19,13 @@
         android:layout_gravity="center"
         android:contextClickable="true"
         android:onClick="buttonToDetailed"
-        android:background="@drawable/pants"
         android:scaleType="fitXY"/>
 
     <ImageButton
-        android:layout_width="59dp"
-        android:layout_height="49dp"
+        android:layout_width="53dp"
+        android:layout_height="44dp"
         android:id="@+id/left_image"
         android:layout_gravity="left|center_vertical"
-        android:foreground="@drawable/x"
         android:contextClickable="true"
         android:onClick="buttonOnClick"
         android:scaleType="fitXY"
