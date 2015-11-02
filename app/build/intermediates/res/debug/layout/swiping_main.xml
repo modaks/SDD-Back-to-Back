@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="161dp"
-        android:layout_height="47dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="$5 - A Scarf"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal|bottom" />
 
     <ImageButton
         android:layout_width="220dp"
@@ -19,7 +11,9 @@
         android:layout_gravity="center"
         android:contextClickable="true"
         android:onClick="buttonToDetailed"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:layout_width="53dp"
@@ -29,7 +23,10 @@
         android:contextClickable="true"
         android:onClick="buttonOnClick"
         android:scaleType="fitXY"
-        android:background="@null"/>
+        android:background="@null"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageButton
         android:layout_width="53dp"
@@ -37,8 +34,32 @@
         android:id="@+id/right_image"
         android:layout_gravity="right|center_vertical"
         android:contextClickable="true"
-        android:onClick="buttonOnClick"
+        android:onClick="buttonOnClickCheck"
         android:scaleType="fitXY"
-        android:background="@null"/>
+        android:background="@null"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</FrameLayout><!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/swiping_main.xml -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Price - "
+        android:id="@+id/Price_main"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_above="@+id/Description_main"
+        android:layout_alignLeft="@+id/Description_main"
+        android:layout_alignStart="@+id/Description_main" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Description - "
+        android:id="@+id/Description_main"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout><!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/swiping_main.xml -->

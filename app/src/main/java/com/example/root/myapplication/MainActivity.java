@@ -24,22 +24,28 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import static com.example.root.myapplication.R.drawable.pants2;
-import static com.example.root.myapplication.R.drawable.pants;
-import static com.example.root.myapplication.R.drawable.x;
-import static com.example.root.myapplication.R.layout.swiping_main;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
     ImageButton b1;
-    private int count = 0;
+    private int count = 0;  // Store the location of clothes for the swiping page
     private ImageButton iv;
     private Bitmap bitmap;
 
-    // Store the location of the clothes
-    private int location_of_clothes;
+    // Checks if coming from recently liked page or swiping page
+    private boolean fromSwiping = true;
+
+    // Create array of clothing objects
+    private ArrayList<Clothing> arrayClothing;
+
+    // Create array of liked objects
+    private ArrayList<Clothing> arrayLikedClothing;
+
+    // Store the location of the clothes for the detailed page
+    private int location_of_clothes = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +59,22 @@ public class MainActivity extends AppCompatActivity {
         // Set current bitmap image
         bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
 
-        //View rootView = getMenuInflater().inflate(swiping_main);
-        //b1 = (ImageButton) findViewById((R.id.center_image));
+        // Create clothing objects and clothing arrays
+        arrayClothing = new ArrayList<Clothing>();
+        arrayClothing.add(new Clothing("http://ecx.images-amazon.com/images/I/617gCojOJBL._UL1500_.jpg",
+                "19.99", "shirt", "N/A", "A Wu Tang Shirt"));
+        arrayClothing.add(new Clothing("https://s3.amazonaws.com/rapgenius/filepicker%2F5jTDmubSTnCREE8BIe5w_nike_shoes.jpg",
+                "60.00", "shoes", "Nike", "Nike Shoes"));
+        arrayClothing.add(new Clothing("https://cdnd.lystit.com/photos/2013/11/08/blk-dnm-black-black-skinny-jeans-8-product-5-14777777-664835857.jpeg",
+                "55.60", "pants", "N/A", "A black pair of skinny jeans."));
+        arrayClothing.add(new Clothing("http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=69616610",
+                "44.99", "pants", "N/A", "A blue pair of skinny jeans."));
+        arrayClothing.add(new Clothing("http://www.equip2golf.com/wordpress/wp-content/themes/bigfeature/library/timthumb/timthumb.php?src=/wordpress/wp-content/uploads/2013/07/nike-flat-bill-tour-hat.jpg&w=608&zc=1&a=c",
+                "25.00", "hat", "Nike", "A Nike hat"));
+
+        //Initialize liked clothing array
+        arrayLikedClothing = new ArrayList<Clothing>();
+
     }
 
     @Override
@@ -65,41 +85,129 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    // When clicking or swiping through clothes with x mark
     public void buttonOnClick(View v){
         iv = (ImageButton) findViewById((R.id.center_image));
 
-        if(count % 2 == 0){
-            bitmap = getBitmapFromURL("http://cdn.fluidretail.net/customers/c1500/P51050/P51050_pdp/zoom_variation_251_view_A_2192x2200.jpg");
-            iv.setImageBitmap(bitmap);
-
+        // Increment count
+        if(count != arrayClothing.size()){
+            count += 1;
         }else{
-            bitmap = getBitmapFromURL("http://content.backcountry.com/images/items/medium/MAR/MAR2242/DESKH.jpg");
-            iv.setImageBitmap(bitmap);
+            count = 0;
         }
-        count += 1;
+        location_of_clothes = count;
+
+        // Get bitmap from URL
+        bitmap = getBitmapFromURL(arrayClothing.get(count).getURL());
+        iv.setImageBitmap(bitmap);
+
+        // Set Price
+        TextView field = (TextView) findViewById(R.id.Price_main);
+        field.setText("Price - ");
+        field.append(arrayClothing.get(count).getPrice());
+
+        // Set Description
+        field = (TextView) findViewById(R.id.Description_main);
+        field.setText("Description - ");
+        field.append(arrayClothing.get(count).getDescription());
+
+        // Delete off array clothing
+        //arrayClothing.remove(count);
+
 
     }
+
+    // When the user clicks the check mark, refresh image and store clothing into liked clothing array
+    public void buttonOnClickCheck(View v){
+        iv = (ImageButton) findViewById((R.id.center_image));
+
+        arrayLikedClothing.add(arrayClothing.get(count));
+
+
+        // Increment count
+        if(count < arrayClothing.size() - 1){
+            count += 1;
+        }else{
+            // Ideally refresh
+            count = 0;
+        }
+        location_of_clothes = count;
+
+        // Get bitmap from URL
+        bitmap = getBitmapFromURL(arrayClothing.get(count).getURL());
+        iv.setImageBitmap(bitmap);
+
+        // Set Price
+        TextView field = (TextView) findViewById(R.id.Price_main);
+        field.setText("Price - ");
+        field.append(arrayClothing.get(count).getPrice());
+
+        // Set Description
+        field = (TextView) findViewById(R.id.Description_main);
+        field.setText("Description - ");
+        field.append(arrayClothing.get(count).getDescription());
+
+        // Delete off array clothing
+        //arrayClothing.remove(count);
+
+
+    }
+
 
     // Go to the detailed page and load the current bitmap image
     public void buttonToDetailed(View v){
         setContentView(R.layout.detail_main);
         iv = (ImageButton) findViewById(R.id.imageButton4);
-        iv.setImageBitmap(bitmap);
 
-        TextView field = (TextView) findViewById(R.id.Price);
-        field.append("15");
-        field = (TextView) findViewById(R.id.Brand);
-        field.append("N/A");
-        field = (TextView) findViewById(R.id.Type);
-        field.append("Scarf");
-        field = (TextView) findViewById(R.id.Description);
-        field.append("A nice scarf to wear");
+        //If from swiping page
+        if(fromSwiping){
+            bitmap = getBitmapFromURL(arrayClothing.get(location_of_clothes).getURL());
+            iv.setImageBitmap(bitmap);
+
+            // Set Price
+            TextView field = (TextView) findViewById(R.id.Price);
+            field.append(arrayClothing.get(location_of_clothes).getPrice());
+
+            // Set Brand
+            field = (TextView) findViewById(R.id.Brand);
+            field.append(arrayClothing.get(location_of_clothes).getBrand());
+
+            // Get Type
+            field = (TextView) findViewById(R.id.Type);
+            field.append(arrayClothing.get(location_of_clothes).getType());
+
+            // Get Description
+            field = (TextView) findViewById(R.id.Description);
+            field.append(arrayClothing.get(location_of_clothes).getDescription());
+        }else{
+            // From Recently liked page
+            bitmap = getBitmapFromURL(arrayLikedClothing.get(location_of_clothes).getURL());
+            iv.setImageBitmap(bitmap);
+
+            // Set Price
+            TextView field = (TextView) findViewById(R.id.Price);
+            field.append(arrayLikedClothing.get(location_of_clothes).getPrice());
+
+            // Set Brand
+            field = (TextView) findViewById(R.id.Brand);
+            field.append(arrayLikedClothing.get(location_of_clothes).getBrand());
+
+            // Get Type
+            field = (TextView) findViewById(R.id.Type);
+            field.append(arrayLikedClothing.get(location_of_clothes).getType());
+
+            // Get Description
+            field = (TextView) findViewById(R.id.Description);
+            field.append(arrayLikedClothing.get(location_of_clothes).getDescription());
+        }
 
     }
 
     // Go to the swiping page
     public void buttonToSwiping(View v){
+        fromSwiping = true;                     // set to true for if going to detailed page
+        location_of_clothes = count;
+
         setContentView(R.layout.swiping_main);
 
         // Set checkmark image
@@ -114,8 +222,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Set Center Image
         iv = (ImageButton) findViewById(R.id.center_image);
-        temp_bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
+        temp_bitmap = getBitmapFromURL(arrayClothing.get(count).getURL());
         iv.setImageBitmap(temp_bitmap);
+
+        // Set Price
+        TextView field = (TextView) findViewById(R.id.Price_main);
+        field.clearComposingText();
+        field.append(arrayClothing.get(count).getPrice());
+
+        // Set Description
+        field = (TextView) findViewById(R.id.Description_main);
+        field.clearComposingText();
+        field.append(arrayClothing.get(count).getDescription());
 
     }
 
@@ -148,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -163,7 +280,13 @@ public class MainActivity extends AppCompatActivity {
         }else if(id == R.id.menu_liked){
             setContentView(R.layout.clothes_liked_main);
 
-            String[] myStringArray={"Pants","Wu Tang Shirt", "Nikes", "Black Skinny Jeans", "Blue Skinny Jeans"};
+
+            // Put all liked clothing into an array
+            String[] myStringArray = new String[arrayLikedClothing.size()];
+            for(int i = 0; i < arrayLikedClothing.size(); i++){
+                myStringArray[i] = arrayLikedClothing.get(i).getDescription();
+            }
+
             ArrayAdapter<String> myAdapter=new
                     ArrayAdapter<String>(
                     this,
@@ -178,17 +301,16 @@ public class MainActivity extends AppCompatActivity {
                                         View v,
                                         int position,
                                         long id) {
-                    if(position == 0){
-                        bitmap = getBitmapFromURL("http://cdn.fluidretail.net/customers/c1500/P51050/P51050_pdp/zoom_variation_251_view_A_2192x2200.jpg");
-                    }else if(position == 1){
-                        bitmap = getBitmapFromURL("http://content.backcountry.com/images/items/medium/MAR/MAR2242/DESKH.jpg");
-                    }
+
+                    fromSwiping = false;
+                    location_of_clothes = position;
                     buttonToDetailed(v);
                 }
             });
 
             return true;
         }else if(id == R.id.menu_filters){
+            // Filters Page
             setContentView(R.layout.filters_main);
 
             String[] myStringArray={"Shirts", "Pants", "Shoes", "Socks", "Hats", "Undergarments", "Miscellaneous"};
@@ -201,13 +323,19 @@ public class MainActivity extends AppCompatActivity {
                     findViewById(R.id.listView2);
             myList.setAdapter(myAdapter);
 
+            // Turn on all filters (set every checkmark to true)
+            myList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            for(int i = 0; i < 7; i++){
+                myList.setItemChecked(i, true);
+            }
+
             myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView parent,
                                         View v,
                                         int position,
                                         long id) {
 
-                    CheckedTextView textView = (CheckedTextView)v;
+                    CheckedTextView textView = (CheckedTextView) v;
                     textView.setChecked(!textView.isChecked());
 
                 }
