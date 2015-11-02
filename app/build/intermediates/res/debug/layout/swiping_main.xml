@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Price - "
+        android:text="Price - $"
         android:id="@+id/Price_main"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_above="@+id/Description_main"
@@ -56,10 +56,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Description - "
         android:id="@+id/Description_main"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-</RelativeLayout><!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/swiping_main.xml -->
+</RelativeLayout><!-- From: file:/home/modaks/Android_Projects/SDD-Back-to-Back/app/src/main/res/layout/swiping_main.xml -->

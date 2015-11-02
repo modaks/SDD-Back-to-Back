@@ -4,41 +4,58 @@ package com.example.root.myapplication;
  * Created by root on 11/1/15.
  */
 public class Clothing {
-
-    private String url;
-    private String price;
-    private String type;
-    private String brand;
+    private String maker;
+    private String type;//Category
     private String description;
+    private String urlShop;
+    private String urlImage;
+    private String onSale;
+    private String price;
+    private String partNumber;
+    private String objectID;
+    private String brand;
+    private String name;
 
-    public Clothing(String URL, String Price, String Type, String Brand, String Description){
-        url = URL;
-        price = Price;
+
+    public Clothing( String Maker, String Type, String Description, String UrlShop, String UrlImage, String OnSale, String Price, String PartNumber,String ObjectID, String Brand,String Name){
+        maker=Maker;
         type = Type;
-        brand = Brand;
         description = Description;
+
+        // Trim description to 25 characters
+        description = description.substring(0, Math.min(description.length(), 125));
+
+        urlShop=UrlShop;
+        urlImage=UrlImage;
+        onSale=OnSale;
+        price = Price;
+        partNumber=PartNumber;
+        objectID=ObjectID;
+        brand = Brand;
+        name=Name;
+
     }
 
 
-    public String getPrice(){
-        return price;
-    }
+    public String getMaker(){return maker;}
 
-    public String getType(){
-        return type;
-    }
+    public String getType(){return type;}
 
-    public String getBrand(){
-        return brand;
-    }
+    public String getDescription(){return description;}
 
-    public String getDescription(){
-        return description;
-    }
+    public String getUrlShop(){return urlShop;}
 
-    public String getURL(){
-        return url;
-    }
+    public String getUrlImage(){return urlImage;}
 
+    public String getOnSale(){return onSale;}
 
+    public String getPrice(){return price;}
+
+    public String getPartNumber(){return partNumber;}
+
+    public String getObjectID(){return objectID;}
+
+    public String getBrand(){return brand;}
+
+    public String getName(){return name;}
 }

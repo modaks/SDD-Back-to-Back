@@ -424,9 +424,8 @@ int drawable abc_textfield_default_mtrl_alpha 0x7f02003a
 int drawable abc_textfield_search_activated_mtrl_alpha 0x7f02003b
 int drawable abc_textfield_search_default_mtrl_alpha 0x7f02003c
 int drawable abc_textfield_search_material 0x7f02003d
-int drawable check 0x7f02003e
-int drawable notification_template_icon_bg 0x7f020040
-int drawable x 0x7f02003f
+int drawable notification_template_icon_bg 0x7f02003f
+int drawable x 0x7f02003e
 int id Brand 0x7f0c0059
 int id Description 0x7f0c005a
 int id Description_main 0x7f0c006f
