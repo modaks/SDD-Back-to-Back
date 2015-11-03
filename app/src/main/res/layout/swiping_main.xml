@@ -66,9 +66,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/tempURL"
-        android:layout_above="@+id/center_image"
-        android:layout_toRightOf="@+id/left_image"
-        android:layout_toEndOf="@+id/left_image" />
+        android:id="@+id/temp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

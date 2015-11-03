@@ -1668,7 +1668,7 @@ containing a value of this type.
         public static final int status_bar_latest_event_content=0x7f0c0060;
         public static final int submit_area=0x7f0c0049;
         public static final int tabMode=0x7f0c000b;
-        public static final int tempURL=0x7f0c0070;
+        public static final int temp=0x7f0c0070;
         public static final int text=0x7f0c0068;
         public static final int text2=0x7f0c0066;
         public static final int textSpacerNoButtons=0x7f0c0031;

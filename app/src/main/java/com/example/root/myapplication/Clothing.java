@@ -22,9 +22,6 @@ public class Clothing {
         type = Type;
         description = Description;
 
-        // Trim description to 25 characters
-        //description = description.substring(0, Math.min(description.length(), 125));
-
         urlShop=UrlShop;
         urlImage=UrlImage;
 
@@ -40,7 +37,13 @@ public class Clothing {
 
     private void parseFurther(){
         //parse Description to 25 characters
-        description = description.substring(0, Math.min(description.length(), 125));
+        description = description.substring(0, Math.min(description.length(), 150));
+        if(description.length() == 150){
+            description = description + "...";
+        }
+        description = description.replace("\\n", " ");
+        description = description.replace("\\r", "");
+
         //parse Name
         name = name.replace("'","");
         name = name.replace("\"","");

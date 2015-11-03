@@ -166,10 +166,6 @@ public class MainActivity extends AppCompatActivity {
         field.setText("Price - $");
         field.append(arrayClothing.get(count).getPrice());
 
-        field = (TextView) findViewById(R.id.tempURL);
-        field.setText("");
-        field.append(arrayClothing.get(count).getUrlImage());
-
         // Set Description
         field = (TextView) findViewById(R.id.Description_main);
         field.setText("");
@@ -178,6 +174,16 @@ public class MainActivity extends AppCompatActivity {
         // Delete off array clothing
         //arrayClothing.remove(count);
 
+        // Write to getLikedProducts page
+        StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/ObjectId%28'");
+        link.append(arrayClothing.get(count).getObjectID());
+        link.append("'%29/0");
+        String temp_link = link.toString();
+        try{
+            getHTML(temp_link);
+        }catch(Exception e){
+            Log.i(LOG_TAG,"Failed to retrieve Jsoin string from onCreate");
+        }
 
     }
 
@@ -206,9 +212,9 @@ public class MainActivity extends AppCompatActivity {
         field.setText("Price - $");
         field.append(arrayClothing.get(count).getPrice());
 
-        field = (TextView) findViewById(R.id.tempURL);
+        field = (TextView) findViewById(R.id.temp);
         field.setText("");
-        field.append(arrayClothing.get(count).getUrlImage());
+        field.append(arrayClothing.get(count).getObjectID());
 
         // Set Description
         field = (TextView) findViewById(R.id.Description_main);
@@ -218,6 +224,16 @@ public class MainActivity extends AppCompatActivity {
         // Delete off array clothing
         //arrayClothing.remove(count);
 
+        // Write to getLikedProducts page
+        StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/ObjectId%28'");
+        link.append(arrayClothing.get(count).getObjectID());
+        link.append("'%29/1");
+        String temp_link = link.toString();
+        try{
+            getHTML(temp_link);
+        }catch(Exception e){
+            Log.i(LOG_TAG,"Failed to retrieve Jsoin string from onCreate");
+        }
 
     }
 
@@ -293,14 +309,8 @@ public class MainActivity extends AppCompatActivity {
         temp_bitmap = getBitmapFromURL(arrayClothing.get(count).getUrlImage());
         iv.setImageBitmap(temp_bitmap);
 
-
-        // URL
-        TextView field = (TextView) findViewById(R.id.tempURL);
-        field.clearComposingText();
-        field.append(arrayClothing.get(count).getUrlImage());
-
         // Set Price
-        field = (TextView) findViewById(R.id.Price_main);
+        TextView field = (TextView) findViewById(R.id.Price_main);
         field.clearComposingText();
         field.append(arrayClothing.get(count).getPrice());
 
@@ -325,20 +335,6 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-
-/*
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.swiping_main, container, false);
-
-        //Buscar el textview en la vista
-        ImageButton button = (ImageButton) rootView.findViewById(R.id.center_image);
-        button.setBackground(getDrawable(pants));
-
-        return rootView;
-    }
-    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
