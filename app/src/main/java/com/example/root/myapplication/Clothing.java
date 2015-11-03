@@ -23,7 +23,7 @@ public class Clothing {
         description = Description;
 
         // Trim description to 25 characters
-        description = description.substring(0, Math.min(description.length(), 125));
+        //description = description.substring(0, Math.min(description.length(), 125));
 
         urlShop=UrlShop;
         urlImage=UrlImage;
@@ -34,7 +34,14 @@ public class Clothing {
         objectID=ObjectID;
         brand = Brand;
         name=Name;
-        //parse name
+        this.parseFurther();
+
+    }
+
+    private void parseFurther(){
+        //parse Description to 25 characters
+        description = description.substring(0, Math.min(description.length(), 125));
+        //parse Name
         name = name.replace("'","");
         name = name.replace("\"","");
 
@@ -44,8 +51,8 @@ public class Clothing {
             urlImage = urlSplit[1];
         }
         urlImage = urlImage.replace("'","");
-        //name = name.replace("\"","");
 
+        //parse type
         if(type.contains("\", u\"")){
             String[] typeSplit = type.split("\", u\"");
             type=typeSplit[1];
@@ -54,8 +61,6 @@ public class Clothing {
         type = type.replace("]","");
         type = type.replace(">","");
     }
-
-
     public String getMaker(){return maker;}
 
     public String getType(){return type;}
