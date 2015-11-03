@@ -447,7 +447,7 @@ int id action_menu_presenter 0x7f0c0003
 int id action_mode_bar 0x7f0c003b
 int id action_mode_bar_stub 0x7f0c003a
 int id action_mode_close_button 0x7f0c0023
-int id action_settings 0x7f0c0070
+int id action_settings 0x7f0c0071
 int id activity_chooser_view_content 0x7f0c0024
 int id alertTitle 0x7f0c002e
 int id always 0x7f0c001b
@@ -490,9 +490,9 @@ int id listView 0x7f0c0051
 int id listView2 0x7f0c005b
 int id list_item 0x7f0c0028
 int id media_actions 0x7f0c0061
-int id menu_filters 0x7f0c0072
-int id menu_liked 0x7f0c0071
-int id menu_logout 0x7f0c0073
+int id menu_filters 0x7f0c0073
+int id menu_liked 0x7f0c0072
+int id menu_logout 0x7f0c0074
 int id middle 0x7f0c001a
 int id multiply 0x7f0c0013
 int id never 0x7f0c001e
@@ -527,6 +527,7 @@ int id src_over 0x7f0c0017
 int id status_bar_latest_event_content 0x7f0c0060
 int id submit_area 0x7f0c0049
 int id tabMode 0x7f0c000b
+int id tempURL 0x7f0c0070
 int id text 0x7f0c0068
 int id text2 0x7f0c0066
 int id textSpacerNoButtons 0x7f0c0031

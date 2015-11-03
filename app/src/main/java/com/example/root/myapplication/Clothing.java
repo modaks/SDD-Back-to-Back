@@ -27,13 +27,32 @@ public class Clothing {
 
         urlShop=UrlShop;
         urlImage=UrlImage;
+
         onSale=OnSale;
         price = Price;
         partNumber=PartNumber;
         objectID=ObjectID;
         brand = Brand;
         name=Name;
+        //parse name
+        name = name.replace("'","");
+        name = name.replace("\"","");
 
+        //edit url image to only have single url not multiple
+        if(urlImage.contains("', u'")){
+            String[] urlSplit = urlImage.split("', u'");
+            urlImage = urlSplit[1];
+        }
+        urlImage = urlImage.replace("'","");
+        //name = name.replace("\"","");
+
+        if(type.contains("\", u\"")){
+            String[] typeSplit = type.split("\", u\"");
+            type=typeSplit[1];
+        }
+        type = type.replace("\"","");
+        type = type.replace("]","");
+        type = type.replace(">","");
     }
 
 

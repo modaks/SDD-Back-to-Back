@@ -166,6 +166,10 @@ public class MainActivity extends AppCompatActivity {
         field.setText("Price - $");
         field.append(arrayClothing.get(count).getPrice());
 
+        field = (TextView) findViewById(R.id.tempURL);
+        field.setText("");
+        field.append(arrayClothing.get(count).getUrlImage());
+
         // Set Description
         field = (TextView) findViewById(R.id.Description_main);
         field.setText("");
@@ -201,6 +205,10 @@ public class MainActivity extends AppCompatActivity {
         TextView field = (TextView) findViewById(R.id.Price_main);
         field.setText("Price - $");
         field.append(arrayClothing.get(count).getPrice());
+
+        field = (TextView) findViewById(R.id.tempURL);
+        field.setText("");
+        field.append(arrayClothing.get(count).getUrlImage());
 
         // Set Description
         field = (TextView) findViewById(R.id.Description_main);
@@ -285,8 +293,14 @@ public class MainActivity extends AppCompatActivity {
         temp_bitmap = getBitmapFromURL(arrayClothing.get(count).getUrlImage());
         iv.setImageBitmap(temp_bitmap);
 
+
+        // URL
+        TextView field = (TextView) findViewById(R.id.tempURL);
+        field.clearComposingText();
+        field.append(arrayClothing.get(count).getUrlImage());
+
         // Set Price
-        TextView field = (TextView) findViewById(R.id.Price_main);
+        field = (TextView) findViewById(R.id.Price_main);
         field.clearComposingText();
         field.append(arrayClothing.get(count).getPrice());
 

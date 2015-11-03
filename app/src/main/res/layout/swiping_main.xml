@@ -61,4 +61,14 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/tempURL"
+        android:layout_above="@+id/center_image"
+        android:layout_toRightOf="@+id/left_image"
+        android:layout_toEndOf="@+id/left_image" />
+
 </RelativeLayout>
