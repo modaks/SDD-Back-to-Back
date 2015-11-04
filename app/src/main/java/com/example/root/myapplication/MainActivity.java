@@ -29,12 +29,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends AppCompatActivity {
 
     ImageButton b1;
-    private int count = 0;  // Store the location of clothes for the swiping page
+    private int count;  // Store the location of clothes for the swiping page
     private ImageButton iv;
     private Bitmap bitmap;
 
@@ -43,7 +44,10 @@ public class MainActivity extends AppCompatActivity {
 
     // Checks if coming from recently liked page or swiping page
     private boolean fromSwiping = true;
+
+    // Created only for a function
     private ArrayList<Clothing> arrayClothingOutput;
+
     // Create array of clothing objects
     private ArrayList<Clothing> arrayClothing;
 
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        count = 0;
+
         // Allows getting URL
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -65,13 +71,11 @@ public class MainActivity extends AppCompatActivity {
         arrayClothingOutput = new ArrayList<Clothing>();
 
         // Create clothing objects and clothing arrays
-       arrayClothing=getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata");
+        arrayClothing = new ArrayList<Clothing>();
+        arrayClothing = getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata");
 
         // Set current bitmap image
         bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
-
-        // Create clothing objects and clothing arrays
-        //arrayClothing = new ArrayList<Clothing>();
 
         /*arrayClothing.add(new Clothing("http://ecx.images-amazon.com/images/I/617gCojOJBL._UL1500_.jpg",
                 "19.99", "shirt", "N/A", "A Wu Tang Shirt"));
@@ -117,12 +121,18 @@ public class MainActivity extends AppCompatActivity {
                 for (int i=0; i<tokens.length;i++){
                     tokens_content = tokens[i].split(delims1);
                     if(tokens_content.length==12){
-                        arrayClothingOutput.add(new Clothing(tokens_content[1],tokens_content[2],tokens_content[3],tokens_content[4],tokens_content[5],tokens_content[6],tokens_content[7],tokens_content[8],tokens_content[9],tokens_content[10],tokens_content[11]));
-
+                        arrayClothingOutput.add(new Clothing(tokens_content[1], tokens_content[2], tokens_content[3], tokens_content[4], tokens_content[5], tokens_content[6], tokens_content[7], tokens_content[8], tokens_content[9], tokens_content[10], tokens_content[11]));
                     }
                 }
             }
         }.start();
+
+        // Sleep for .4 seconds to allow thread to catch up
+        try {
+            TimeUnit.MILLISECONDS.sleep(1000);
+        } catch (InterruptedException e){
+            Log.i(LOG_TAG,"Failed to sleep");
+        }
 
         return arrayClothingOutput;
     }
@@ -158,8 +168,27 @@ public class MainActivity extends AppCompatActivity {
     public void buttonOnClick(View v){
         iv = (ImageButton) findViewById((R.id.center_image));
 
+        // Write to getLikedProducts page
+        StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/");
+
+        // Crashes here:
+        try{
+            link.append(arrayClothing.get(count).getObjectID());
+        }catch(Exception e){
+
+        }
+
+
+        link.append("/0");
+        String temp_link = link.toString();
+        try{
+            getHTML(temp_link);
+        }catch(Exception e){
+            Log.i(LOG_TAG,"Failed to retrieve Jsoin string from onCreate");
+        }
+
         // Increment count
-        if(count != arrayClothing.size()){
+        if(count != arrayClothing.size() - 1){
             count += 1;
         }else{
             count = 0;
@@ -167,31 +196,32 @@ public class MainActivity extends AppCompatActivity {
         location_of_clothes = count;
 
         // Get bitmap from URL
-        bitmap = getBitmapFromURL(arrayClothing.get(count).getUrlImage());
-        iv.setImageBitmap(bitmap);
+        //bitmap.recycle();
+        try{
+            iv.setImageBitmap(getBitmapFromURL(arrayClothing.get(count).getUrlImage()));
+        }catch(Exception e){
+            Log.i(LOG_TAG,Integer.toString(count));
+            Log.i(LOG_TAG, arrayClothing.get(count).getUrlImage());
+        }
+
 
         // Set Price
         TextView field = (TextView) findViewById(R.id.Price_main);
         field.setText("Price - $");
-        field.append(arrayClothing.get(count).getPrice());
+        try{
+            field.append(arrayClothing.get(count).getPrice());
+        }catch(Exception e){
+
+        }
+
 
         // Set Description
         field = (TextView) findViewById(R.id.Description_main);
         field.setText("");
-        field.append(arrayClothing.get(count).getName());
-
-        // Delete off array clothing
-        //arrayClothing.remove(count);
-
-        // Write to getLikedProducts page
-        StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/ObjectId%28'");
-        link.append(arrayClothing.get(count).getObjectID());
-        link.append("'%29/0");
-        String temp_link = link.toString();
         try{
-            getHTML(temp_link);
+            field.append(arrayClothing.get(count).getName());
         }catch(Exception e){
-            Log.i(LOG_TAG,"Failed to retrieve Jsoin string from onCreate");
+
         }
 
     }
@@ -200,8 +230,21 @@ public class MainActivity extends AppCompatActivity {
     public void buttonOnClickCheck(View v){
         iv = (ImageButton) findViewById((R.id.center_image));
 
-        arrayLikedClothing.add(arrayClothing.get(count));
 
+        // Write to getLikedProducts page
+        StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/");
+        try{
+            link.append(arrayClothing.get(count).getObjectID());
+        }catch(Exception e){
+
+        }
+        link.append("/1");
+        String temp_link = link.toString();
+        try{
+            getHTML(temp_link);
+        }catch(Exception e){
+            Log.i(LOG_TAG,"Failed to retrieve Jsoin string from onCreate");
+        }
 
         // Increment count
         if(count < arrayClothing.size() - 1){
@@ -213,39 +256,33 @@ public class MainActivity extends AppCompatActivity {
         location_of_clothes = count;
 
         // Get bitmap from URL
+        bitmap.recycle();
         bitmap = getBitmapFromURL(arrayClothing.get(count).getUrlImage());
-        iv.setImageBitmap(bitmap);
+        if(bitmap != null){
+            iv.setImageBitmap(bitmap);
+        }
 
         // Set Price
         TextView field = (TextView) findViewById(R.id.Price_main);
         field.setText("Price - $");
-        field.append(arrayClothing.get(count).getPrice());
+        try{
+            field.append(arrayClothing.get(count).getPrice());
+        }catch(Exception e){
 
-        field = (TextView) findViewById(R.id.temp);
-        field.setText("");
-        field.append(arrayClothing.get(count).getObjectID());
+        }
 
         // Set Description
         field = (TextView) findViewById(R.id.Description_main);
         field.setText("");
-        field.append(arrayClothing.get(count).getName());
-
-        // Delete off array clothing
-        //arrayClothing.remove(count);
-
-        // Write to getLikedProducts page
-        StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/ObjectId%28'");
-        link.append(arrayClothing.get(count).getObjectID());
-        link.append("'%29/1");
-        String temp_link = link.toString();
         try{
-            getHTML(temp_link);
+            field.append(arrayClothing.get(count).getName());
         }catch(Exception e){
-            Log.i(LOG_TAG,"Failed to retrieve Jsoin string from onCreate");
+
         }
 
-    }
 
+
+    }
 
     // Go to the detailed page and load the current bitmap image
     public void buttonToDetailed(View v){
@@ -254,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
 
         //If from swiping page
         if(fromSwiping){
+            bitmap.recycle();
             bitmap = getBitmapFromURL(arrayClothing.get(location_of_clothes).getUrlImage());
             iv.setImageBitmap(bitmap);
 
@@ -272,8 +310,15 @@ public class MainActivity extends AppCompatActivity {
             // Get Description
             field = (TextView) findViewById(R.id.Description);
             field.append(arrayClothing.get(location_of_clothes).getDescription());
+
+            // Get Name
+            field = (TextView) findViewById(R.id.textView7);
+            field.setText("");
+            field.append(arrayClothing.get(location_of_clothes).getName());
+
         }else{
-            // From Recently liked page
+        // From Recently liked page
+            bitmap.recycle();
             bitmap = getBitmapFromURL(arrayLikedClothing.get(location_of_clothes).getUrlImage());
             iv.setImageBitmap(bitmap);
 
@@ -292,8 +337,12 @@ public class MainActivity extends AppCompatActivity {
             // Get Description
             field = (TextView) findViewById(R.id.Description);
             field.append(arrayLikedClothing.get(location_of_clothes).getDescription());
-        }
 
+            // Get Name
+            field = (TextView) findViewById(R.id.textView7);
+            field.setText("");
+            field.append(arrayClothing.get(location_of_clothes).getName());
+        }
     }
 
     // Go to the swiping page
@@ -303,35 +352,47 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.swiping_main);
 
+        arrayClothing.clear();
+        arrayClothing = getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata");
+
         // Set checkmark image
         iv = (ImageButton) findViewById(R.id.right_image);
-        Bitmap temp_bitmap = getBitmapFromURL("http://www.clipartbest.com/cliparts/niE/LL8/niELL86iA.png");
-        iv.setImageBitmap(temp_bitmap);
+        iv.setImageBitmap(getBitmapFromURL("http://www.clipartbest.com/cliparts/niE/LL8/niELL86iA.png"));
 
         // Set x image
         iv = (ImageButton) findViewById(R.id.left_image);
-        temp_bitmap = getBitmapFromURL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/X_mark.svg/896px-X_mark.svg.png");
-        iv.setImageBitmap(temp_bitmap);
+        iv.setImageBitmap(getBitmapFromURL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/X_mark.svg/896px-X_mark.svg.png"));
 
         // Set Center Image
         iv = (ImageButton) findViewById(R.id.center_image);
-        temp_bitmap = getBitmapFromURL(arrayClothing.get(count).getUrlImage());
-        iv.setImageBitmap(temp_bitmap);
+        try{
+            iv.setImageBitmap(getBitmapFromURL(arrayClothing.get(count).getUrlImage()));
+        }catch(Exception e){
+
+        }
 
         // Set Price
         TextView field = (TextView) findViewById(R.id.Price_main);
         field.clearComposingText();
-        field.append(arrayClothing.get(count).getPrice());
+        try {
+            field.append(arrayClothing.get(count).getPrice());
+        }catch(Exception e){
+
+        }
 
         // Set Description
         field = (TextView) findViewById(R.id.Description_main);
         field.clearComposingText();
-        field.append(arrayClothing.get(count).getName());
+        try {
+            field.append(arrayClothing.get(count).getName());
+        }catch(Exception e){
 
+        }
     }
 
     public Bitmap getBitmapFromURL(String src){
         try{
+
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
@@ -359,6 +420,9 @@ public class MainActivity extends AppCompatActivity {
         }else if(id == R.id.menu_liked){
             setContentView(R.layout.clothes_liked_main);
 
+            // Pull Liked Clothing from AWS
+            arrayLikedClothing.clear();
+            arrayLikedClothing = getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/AkshayMata");
 
             // Put all liked clothing into an array
             String[] myStringArray = new String[arrayLikedClothing.size()];
@@ -386,6 +450,7 @@ public class MainActivity extends AppCompatActivity {
                     buttonToDetailed(v);
                 }
             });
+
 
             return true;
         }else if(id == R.id.menu_filters){

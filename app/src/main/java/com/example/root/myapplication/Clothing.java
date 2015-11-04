@@ -47,6 +47,7 @@ public class Clothing {
         //parse Name
         name = name.replace("'","");
         name = name.replace("\"","");
+        name = name.replace("}","");
 
         //edit url image to only have single url not multiple
         if(urlImage.contains("', u'")){

@@ -1563,8 +1563,7 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f02003b;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f02003c;
         public static final int abc_textfield_search_material=0x7f02003d;
-        public static final int notification_template_icon_bg=0x7f02003f;
-        public static final int x=0x7f02003e;
+        public static final int notification_template_icon_bg=0x7f02003e;
     }
     public static final class id {
         public static final int Brand=0x7f0c0059;
@@ -1588,7 +1587,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0c003b;
         public static final int action_mode_bar_stub=0x7f0c003a;
         public static final int action_mode_close_button=0x7f0c0023;
-        public static final int action_settings=0x7f0c0071;
+        public static final int action_settings=0x7f0c0070;
         public static final int activity_chooser_view_content=0x7f0c0024;
         public static final int alertTitle=0x7f0c002e;
         public static final int always=0x7f0c001b;
@@ -1631,9 +1630,9 @@ containing a value of this type.
         public static final int listView2=0x7f0c005b;
         public static final int list_item=0x7f0c0028;
         public static final int media_actions=0x7f0c0061;
-        public static final int menu_filters=0x7f0c0073;
-        public static final int menu_liked=0x7f0c0072;
-        public static final int menu_logout=0x7f0c0074;
+        public static final int menu_filters=0x7f0c0072;
+        public static final int menu_liked=0x7f0c0071;
+        public static final int menu_logout=0x7f0c0073;
         public static final int middle=0x7f0c001a;
         public static final int multiply=0x7f0c0013;
         public static final int never=0x7f0c001e;
@@ -1668,7 +1667,6 @@ containing a value of this type.
         public static final int status_bar_latest_event_content=0x7f0c0060;
         public static final int submit_area=0x7f0c0049;
         public static final int tabMode=0x7f0c000b;
-        public static final int temp=0x7f0c0070;
         public static final int text=0x7f0c0068;
         public static final int text2=0x7f0c0066;
         public static final int textSpacerNoButtons=0x7f0c0031;
