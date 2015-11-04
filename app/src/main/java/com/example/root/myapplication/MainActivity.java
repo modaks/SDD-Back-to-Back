@@ -2,7 +2,6 @@ package com.example.root.myapplication;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,13 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckedTextView;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,7 +22,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -77,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         // Set current bitmap image
         bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
 
+        // Mock Objects
         /*arrayClothing.add(new Clothing("http://ecx.images-amazon.com/images/I/617gCojOJBL._UL1500_.jpg",
                 "19.99", "shirt", "N/A", "A Wu Tang Shirt"));
         arrayClothing.add(new Clothing("https://s3.amazonaws.com/rapgenius/filepicker%2F5jTDmubSTnCREE8BIe5w_nike_shoes.jpg",
@@ -90,14 +84,14 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialize liked clothing array
         arrayLikedClothing = new ArrayList<Clothing>();
-
     }
 
+    // Get and parse clothing objects from AWS server
     public ArrayList<Clothing> getClothing(final String urlAWS){
 
         arrayClothingOutput.clear();
 
-        //create new thread since we are accessing Network
+        // Create new thread since we are accessing Network
         new Thread(){
             public void run() {
 
@@ -136,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
 
         return arrayClothingOutput;
     }
+
+    // Get text from HTML file
     public static String getHTML(String urlToRead) throws Exception {
         try {
             StringBuilder result = new StringBuilder();
@@ -156,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -171,13 +168,9 @@ public class MainActivity extends AppCompatActivity {
         // Write to getLikedProducts page
         StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/");
 
-        // Crashes here:
         try{
             link.append(arrayClothing.get(count).getObjectID());
-        }catch(Exception e){
-
-        }
-
+        }catch(Exception e){}
 
         link.append("/0");
         String temp_link = link.toString();
@@ -196,14 +189,12 @@ public class MainActivity extends AppCompatActivity {
         location_of_clothes = count;
 
         // Get bitmap from URL
-        //bitmap.recycle();
         try{
             iv.setImageBitmap(getBitmapFromURL(arrayClothing.get(count).getUrlImage()));
         }catch(Exception e){
             Log.i(LOG_TAG,Integer.toString(count));
             Log.i(LOG_TAG, arrayClothing.get(count).getUrlImage());
         }
-
 
         // Set Price
         TextView field = (TextView) findViewById(R.id.Price_main);
@@ -214,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
         // Set Description
         field = (TextView) findViewById(R.id.Description_main);
         field.setText("");
@@ -223,13 +213,11 @@ public class MainActivity extends AppCompatActivity {
         }catch(Exception e){
 
         }
-
     }
 
     // When the user clicks the check mark, refresh image and store clothing into liked clothing array
     public void buttonOnClickCheck(View v){
         iv = (ImageButton) findViewById((R.id.center_image));
-
 
         // Write to getLikedProducts page
         StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/");
@@ -279,9 +267,6 @@ public class MainActivity extends AppCompatActivity {
         }catch(Exception e){
 
         }
-
-
-
     }
 
     // Go to the detailed page and load the current bitmap image
@@ -390,6 +375,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Get bitmap image from URL
     public Bitmap getBitmapFromURL(String src){
         try{
 
@@ -413,11 +399,13 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.menu_logout) {
+            // Go to log in page
             setContentView(R.layout.activity_main);
             return true;
+
         }else if(id == R.id.menu_liked){
+            // Go to clothes liked page
             setContentView(R.layout.clothes_liked_main);
 
             // Pull Liked Clothing from AWS
@@ -484,11 +472,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-
-
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
