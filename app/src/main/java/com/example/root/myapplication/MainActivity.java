@@ -67,10 +67,6 @@ public class MainActivity extends AppCompatActivity {
         // Set current bitmap image
         bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
 
-
-
-
-
         //initialize the webserver
         webserver=new WebServiceAdaptor("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata");
     }
@@ -169,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
         location_of_clothes = count;
         */
 
-        location_of_clothes=webserver.like(count);
-        count=location_of_clothes;
+        location_of_clothes = webserver.like(count);
+        count = location_of_clothes;
         // Get bitmap from URL
         bitmap.recycle();
         bitmap = getBitmapFromURL(webserver.getArrayClothing().get(count).getUrlImage());
@@ -345,11 +341,10 @@ public class MainActivity extends AppCompatActivity {
             */
             webserver.clearLikedClothing();
 
-
             // Put all liked clothing into an array
             String[]myStringArray = new String[webserver.getArrayLikedClothing().size()];
             for(int i = 0; i < webserver.getArrayLikedClothing().size(); i++){
-            myStringArray[i] = webserver.getArrayLikedClothing().get(i).getName();
+                myStringArray[i] = webserver.getArrayLikedClothing().get(i).getName();
             }
 
             ArrayAdapter<String> myAdapter=new
@@ -403,6 +398,19 @@ public class MainActivity extends AppCompatActivity {
 
                     CheckedTextView textView = (CheckedTextView) v;
                     textView.setChecked(!textView.isChecked());
+                    // Implement filters option here
+                    /*
+                    if(textView.isChecked()){
+                        if(position == 1){
+                            webserver.updateClothingFilters("Shoes");
+                        }else if(position == 2){
+
+                        }else if(position == 3){
+
+                        }
+                    }
+                    */
+
 
                 }
             });

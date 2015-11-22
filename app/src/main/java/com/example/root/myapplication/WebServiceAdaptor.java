@@ -13,30 +13,32 @@ import java.util.concurrent.TimeUnit;
  * Created by modaks on 11/21/15.
  */
 public class WebServiceAdaptor {
-    private ArrayList<Clothing> arrayClothing;
-    private ArrayList<Clothing> arrayLikedClothing;
-    private ArrayList<Clothing> arrayClothingOutput;
+
+
+    private ArrayList<Clothing> temp_array;
     private static final String LOG_TAG = "debugger";
+    private Models model;
 
     public WebServiceAdaptor(String AllClothes/*String LikedClothes*/){
 
-       //create container for all clothes
-        arrayClothing = new ArrayList<Clothing>();
-        //connect to AWS to get all clothes
-        arrayClothing = getClothing(AllClothes);
-
-
-        //Initialize liked clothing array
-        arrayLikedClothing = new ArrayList<Clothing>();
-        arrayLikedClothing=getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/AkshayMata");
+        // Create Model class
+        model = new Models();
+        model.setArrayClothes(getClothing(AllClothes));
+        model.setArrayLikedClothes(getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/AkshayMata"));
     }
-    public ArrayList<Clothing> getArrayClothing(){return arrayClothing;}
-    public ArrayList<Clothing> getArrayLikedClothing(){return arrayLikedClothing;}
+
+    public ArrayList<Clothing> getArrayClothing(){return model.getArrayClothes();}
+    public ArrayList<Clothing> getArrayLikedClothing(){return model.getArrayLikedClothes();}
+
+    // Update clothing array when we press on the filters
+    public void updateClothingFilters(String filterOption){
+        model.setArrayClothes(getClothing(filterOption));
+    }
 
     public ArrayList<Clothing> getClothing(final String urlAWS){
         //create return variable for this function
-        arrayClothingOutput = new ArrayList<Clothing>();
-        arrayClothingOutput.clear();
+        temp_array = new ArrayList<Clothing>();
+        temp_array.clear();
 
         // Create new thread since we are accessing Network
         new Thread(){
@@ -62,7 +64,7 @@ public class WebServiceAdaptor {
                 for (int i=0; i<tokens.length;i++){
                     tokens_content = tokens[i].split(delims1);
                     if(tokens_content.length==12){
-                        arrayClothingOutput.add(new Clothing(tokens_content[1], tokens_content[2], tokens_content[3], tokens_content[4], tokens_content[5], tokens_content[6], tokens_content[7], tokens_content[8], tokens_content[9], tokens_content[10], tokens_content[11]));
+                        temp_array.add(new Clothing(tokens_content[1], tokens_content[2], tokens_content[3], tokens_content[4], tokens_content[5], tokens_content[6], tokens_content[7], tokens_content[8], tokens_content[9], tokens_content[10], tokens_content[11]));
                     }
                 }
             }
@@ -75,7 +77,7 @@ public class WebServiceAdaptor {
             Log.i(LOG_TAG,"Failed to sleep");
         }
 
-        return arrayClothingOutput;
+        return temp_array;
     }
 
     // Get text from HTML file
@@ -104,7 +106,7 @@ public class WebServiceAdaptor {
         StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/");
 
         try{
-            link.append(arrayClothing.get(count).getObjectID());
+            link.append(model.getArrayClothes().get(count).getObjectID());
         }catch(Exception e){}
 
         link.append("/0");
@@ -116,7 +118,7 @@ public class WebServiceAdaptor {
         }
 
         // Increment count
-        if(count != arrayClothing.size() - 1){
+        if(count != model.getArrayClothes().size() - 1){
             count += 1;
         }else{
             count = 0;
@@ -128,7 +130,7 @@ public class WebServiceAdaptor {
         // Write to getLikedProducts page
         StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/");
         try{
-            link.append(arrayClothing.get(count).getObjectID());
+            link.append(model.getArrayClothes().get(count).getObjectID());
         }catch(Exception e){
 
         }
@@ -141,7 +143,7 @@ public class WebServiceAdaptor {
         }
 
         // Increment count
-        if(count < arrayClothing.size() - 1){
+        if(count < model.getArrayClothes().size() - 1){
             count += 1;
         }else{
             // Ideally refresh
@@ -151,11 +153,10 @@ public class WebServiceAdaptor {
     }
 
     public void clearClothing(){
-        arrayClothing.clear();
-        arrayClothing = getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata");
+        model.setArrayClothes(getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata"));
     }
+
     public void clearLikedClothing(){
-        arrayLikedClothing.clear();
-        arrayLikedClothing = getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/AkshayMata");
+        model.setArrayLikedClothes(getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/AkshayMata"));
     }
 }
