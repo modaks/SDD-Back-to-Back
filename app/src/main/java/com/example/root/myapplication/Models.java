@@ -1,5 +1,7 @@
 package com.example.root.myapplication;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 /**
  * To store Data in regards to Users and Data
@@ -8,6 +10,9 @@ public class Models {
     // Private variables
     private ArrayList<Clothing> arrayClothing;
     private ArrayList<Clothing> arrayLikedClothing;
+    private String[] myStringArrayFilters={"Shirts", "Pants", "Shoes", "Socks", "Hats", "Men's", "Women's"};
+    private boolean[] arrayFiltersOnOff={false,false,false,false,false,false,false};
+    private static final String LOG_TAG = "debugger";
 
     // Store index for location of current clothes
     private int index = 0;
@@ -15,14 +20,22 @@ public class Models {
     public Models(){
         arrayLikedClothing = new ArrayList<Clothing>();
         arrayClothing = new ArrayList<Clothing>();
+
     }
 
     // Return arrays
     public ArrayList<Clothing> getArrayClothes(){ return arrayClothing; }
     public ArrayList<Clothing> getArrayLikedClothes(){ return arrayLikedClothing; }
+    public String[] getMyStringArrayFilters(){return myStringArrayFilters;}
+    public boolean[] getArrayFiltersOnOff(){return arrayFiltersOnOff;}
+    public void updateArrayFiltersOnOff(int index, boolean TF){
+        arrayFiltersOnOff[index]=TF;
+    }
+
 
     // Set arrays
     public void setArrayClothes(ArrayList<Clothing> clothes) {
+        Log.i(LOG_TAG, "Updating Model");
         arrayClothing.clear();
         arrayClothing = clothes;
     }

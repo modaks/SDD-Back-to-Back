@@ -373,13 +373,13 @@ public class MainActivity extends AppCompatActivity {
         }else if(id == R.id.menu_filters){
             // Filters Page
             setContentView(R.layout.filters_main);
-
-            String[] myStringArray={"Shirts", "Pants", "Shoes", "Socks", "Hats", "Undergarments", "Miscellaneous"};
+            Log.i(LOG_TAG, "Entered Filters");
+            //String[] myStringArray={"Shirts", "Pants", "Shoes", "Socks", "Hats", "Men's", "Women's"};
             ArrayAdapter<String> myAdapter=new
                     ArrayAdapter<String>(
                     this,
                     android.R.layout.simple_list_item_checked,
-                    myStringArray);
+                    webserver.getMyStringArrayFilters());
             ListView myList=(ListView)
                     findViewById(R.id.listView2);
             myList.setAdapter(myAdapter);
@@ -387,29 +387,50 @@ public class MainActivity extends AppCompatActivity {
             // Turn on all filters (set every checkmark to true)
             myList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             for(int i = 0; i < 7; i++){
-                myList.setItemChecked(i, true);
+                if(webserver.getArrayFiltersOnOff(i)==true)
+                    myList.setItemChecked(i, true);
+                else
+                    myList.setItemChecked(i, false);
             }
 
             myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
                 public void onItemClick(AdapterView parent,
                                         View v,
                                         int position,
                                         long id) {
-
+                    Log.i(LOG_TAG, "Entered Filters OnClickItem");
                     CheckedTextView textView = (CheckedTextView) v;
                     textView.setChecked(!textView.isChecked());
+                    Log.i(LOG_TAG, "Entered Filters OnClickItem2"+position);
                     // Implement filters option here
-                    /*
+
                     if(textView.isChecked()){
-                        if(position == 1){
-                            webserver.updateClothingFilters("Shoes");
+
+                        Log.i(LOG_TAG,"isChecked");
+                        if(position == 0){
+                            webserver.updateClothingFilters("Shirts");
+                        }else if(position == 1){
+                            webserver.updateClothingFilters("Pants");
                         }else if(position == 2){
-
-                        }else if(position == 3){
-
+                            webserver.updateClothingFilters("Shoes");
                         }
+                        else if(position == 3){
+                            webserver.updateClothingFilters("Socks");
+                        }
+                        else if(position == 4){
+                            webserver.updateClothingFilters("Hats");
+                        }
+                        else if(position == 5){
+                            webserver.updateClothingFilters("Men");
+                        }
+                        else if(position == 6){
+                            webserver.updateClothingFilters("Women");
+                        }
+                    }else{
+                        Log.i(LOG_TAG,"isNotChecked");
                     }
-                    */
+
 
 
                 }

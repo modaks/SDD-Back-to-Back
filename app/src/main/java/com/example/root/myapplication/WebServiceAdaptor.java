@@ -18,9 +18,13 @@ public class WebServiceAdaptor {
     private ArrayList<Clothing> temp_array;
     private static final String LOG_TAG = "debugger";
     private Models model;
+    private String clothesFilterURL;
+
 
     public WebServiceAdaptor(String AllClothes/*String LikedClothes*/){
 
+        clothesFilterURL=new StringBuilder().append(AllClothes).append("/").toString();
+       // clothesLikedURL="http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/AkshayMata";
         // Create Model class
         model = new Models();
         model.setArrayClothes(getClothing(AllClothes));
@@ -29,10 +33,17 @@ public class WebServiceAdaptor {
 
     public ArrayList<Clothing> getArrayClothing(){return model.getArrayClothes();}
     public ArrayList<Clothing> getArrayLikedClothing(){return model.getArrayLikedClothes();}
+    public String[] getMyStringArrayFilters(){return model.getMyStringArrayFilters();}
+    public boolean getArrayFiltersOnOff(int index){return model.getArrayFiltersOnOff()[index];}
+    public void updateArrayFiltersOnOff(int index, boolean TF){
+        model.updateArrayFiltersOnOff(index,TF);
+    }
 
     // Update clothing array when we press on the filters
     public void updateClothingFilters(String filterOption){
+        clothesFilterURL=new StringBuilder().append(clothesFilterURL).append(filterOption).append(",").toString();
         model.setArrayClothes(getClothing(filterOption));
+        Log.i(LOG_TAG, "Updating filters"+clothesFilterURL);
     }
 
     public ArrayList<Clothing> getClothing(final String urlAWS){
@@ -153,7 +164,11 @@ public class WebServiceAdaptor {
     }
 
     public void clearClothing(){
-        model.setArrayClothes(getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata"));
+        if(clothesFilterURL.charAt(clothesFilterURL.length() - 1)=='/')
+            model.setArrayClothes(getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata"));
+        else
+            model.setArrayClothes(getClothing(clothesFilterURL));
+        Log.i(LOG_TAG,clothesFilterURL);
     }
 
     public void clearLikedClothing(){
