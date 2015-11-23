@@ -402,13 +402,15 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(LOG_TAG, "Entered Filters OnClickItem");
                     CheckedTextView textView = (CheckedTextView) v;
                     textView.setChecked(!textView.isChecked());
-                    Log.i(LOG_TAG, "Entered Filters OnClickItem2"+position);
+                    Log.i(LOG_TAG, "Entered Filters OnClickItem2" + position);
+                    webserver.updateArrayFiltersOnOff(position, !webserver.getArrayFiltersOnOff(position));
                     // Implement filters option here
 
-                    if(textView.isChecked()){
+                    if(/*textView.isChecked()*/webserver.getArrayFiltersOnOff(position)){
 
                         Log.i(LOG_TAG,"isChecked");
                         if(position == 0){
+
                             webserver.updateClothingFilters("Shirts");
                         }else if(position == 1){
                             webserver.updateClothingFilters("Pants");
@@ -429,6 +431,27 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }else{
                         Log.i(LOG_TAG,"isNotChecked");
+
+                        if(position == 0){
+
+                            webserver.removeClothingFilters("Shirts");
+                        }else if(position == 1){
+                            webserver.removeClothingFilters("Pants");
+                        }else if(position == 2){
+                            webserver.removeClothingFilters("Shoes");
+                        }
+                        else if(position == 3){
+                            webserver.removeClothingFilters("Socks");
+                        }
+                        else if(position == 4){
+                            webserver.removeClothingFilters("Hats");
+                        }
+                        else if(position == 5){
+                            webserver.removeClothingFilters("Men");
+                        }
+                        else if(position == 6){
+                            webserver.removeClothingFilters("Women");
+                        }
                     }
 
 

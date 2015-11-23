@@ -42,7 +42,12 @@ public class WebServiceAdaptor {
     // Update clothing array when we press on the filters
     public void updateClothingFilters(String filterOption){
         clothesFilterURL=new StringBuilder().append(clothesFilterURL).append(filterOption).append(",").toString();
-        model.setArrayClothes(getClothing(filterOption));
+        //model.setArrayClothes(getClothing(filterOption));
+        Log.i(LOG_TAG, "Updating filters" + clothesFilterURL);
+    }
+    public void removeClothingFilters(String filterOption){
+        clothesFilterURL=clothesFilterURL.replace(filterOption+",","");
+        //model.setArrayClothes(getClothing(filterOption));
         Log.i(LOG_TAG, "Updating filters"+clothesFilterURL);
     }
 
