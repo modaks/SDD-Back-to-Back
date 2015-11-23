@@ -317,13 +317,15 @@ public class MainActivity extends AppCompatActivity {
             buttonToSwiping(v);
         }else{
             Log.i(LOG_TAG, "Error, invalid username or password");
+            TextView errorText = (TextView)this.findViewById(R.id.errorID);
+            userID = String.format("Error: %s", userID);
+            errorText.setText(userID);
         }
     }
 
     // Get bitmap image from URL
     public Bitmap getBitmapFromURL(String src){
         try{
-
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
