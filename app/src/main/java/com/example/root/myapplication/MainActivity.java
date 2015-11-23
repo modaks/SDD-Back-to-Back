@@ -17,49 +17,32 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 
 public class MainActivity extends AppCompatActivity {
+    private int count;      // Store the location/index of the clothes array for the swiping page
+    private ImageButton iv; // Initialize ImageButton for later use
+    private Bitmap bitmap;  // Initialize bitmap for later use in making images
 
-    ImageButton b1;
-    private int count;  // Store the location of clothes for the swiping page
-    private ImageButton iv;
-    private Bitmap bitmap;
-
-    //used for LOg.I debugging statments printed to logTag
+    // Used for Log.I debugging statments printed to logTag
     private static final String LOG_TAG = "debugger";
 
-    // Checks if coming from recently liked page or swiping page
+    // When app goes to DetailedPage, checks if it is coming from RecentlyLikedPage or SwipingPage
     private boolean fromSwiping = true;
 
-    // Created only for a function
-    //private ArrayList<Clothing> arrayClothingOutput;
-
-    // Create array of clothing objects
-   // private ArrayList<Clothing> arrayClothing;
-
-    // Create array of liked objects
-    //private ArrayList<Clothing> arrayLikedClothing;
-
-    //WebserviceAdaptor variable handles all webserver
+    // WebserviceAdaptor variable handles all webserver calls and acceses models class
     private WebServiceAdaptor webserver;
 
-    // Store the location of the clothes for the detailed page
+    // Store the index of the clothesLiked array for the detailed page
     private int location_of_clothes = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        count = 0;
+        setContentView(R.layout.activity_main); // Go to activity main page
+        count = 0;  // Initialize count to 0
 
         // Allows getting URL
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -68,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         // Set current bitmap image
         bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
 
-        //initialize the webserver
+        // Initialize the webserver
         webserver=new WebServiceAdaptor("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata");
     }
 
@@ -80,42 +63,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // When clicking or swiping through clothes with x mark
-    public void buttonOnClick(View v){
-        iv = (ImageButton) findViewById((R.id.center_image));
-        /*
-        // Write to getLikedProducts page
-        StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/");
+    // Event Handler for X button
+    public void buttonDislike(View v){
+        iv = (ImageButton) findViewById((R.id.center_image));   // get ID of center image
 
-        try{
-            link.append(arrayClothing.get(count).getObjectID());
-        }catch(Exception e){}
-
-        link.append("/0");
-        String temp_link = link.toString();
-        try{
-            getHTML(temp_link);
-        }catch(Exception e){
-            Log.i(LOG_TAG,"Failed to retrieve Jsoin string from onCreate");
-        }
-
-        // Increment count
-        if(count != arrayClothing.size() - 1){
-            count += 1;
-        }else{
-            count = 0;
-        }
-        location_of_clothes = count;
-        */
-
-        location_of_clothes=webserver.dislike(count);
-        count=location_of_clothes;
+        // Update indexes
+        location_of_clothes = webserver.dislike(count);
+        count = location_of_clothes;
         // Get bitmap from URL
         try{
             iv.setImageBitmap(getBitmapFromURL(webserver.getArrayClothing().get(count).getUrlImage()));
         }catch(Exception e){
-            Log.i(LOG_TAG,Integer.toString(count));
-            Log.i(LOG_TAG, webserver.getArrayClothing().get(count).getUrlImage());
+            Log.i(LOG_TAG, "Error: Cannot get bitmap image");
         }
 
         // Set Price
@@ -124,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         try{
             field.append(webserver.getArrayClothing().get(count).getPrice());
         }catch(Exception e){
-
+            Log.i(LOG_TAG, "Error: Cannot get price");
         }
 
         // Set Description
@@ -133,39 +92,15 @@ public class MainActivity extends AppCompatActivity {
         try{
             field.append(webserver.getArrayClothing().get(count).getName());
         }catch(Exception e){
-
+            Log.i(LOG_TAG, "Error: Cannot get description");
         }
     }
 
-    // When the user clicks the check mark, refresh image and store clothing into liked clothing array
-    public void buttonOnClickCheck(View v){
-        iv = (ImageButton) findViewById((R.id.center_image));
-        /*
-        // Write to getLikedProducts page
-        StringBuffer link = new StringBuffer("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/AkshayMata/");
-        try{
-            link.append(arrayClothing.get(count).getObjectID());
-        }catch(Exception e){
+    // Event handler for check button
+    public void buttonLike(View v){
+        iv = (ImageButton) findViewById((R.id.center_image));   // get ID of center image
 
-        }
-        link.append("/1");
-        String temp_link = link.toString();
-        try{
-            getHTML(temp_link);
-        }catch(Exception e){
-            Log.i(LOG_TAG,"Failed to retrieve Jsoin string from onCreate");
-        }
-
-        // Increment count
-        if(count < arrayClothing.size() - 1){
-            count += 1;
-        }else{
-            // Ideally refresh
-            count = 0;
-        }
-        location_of_clothes = count;
-        */
-
+        // Update indexes
         location_of_clothes = webserver.like(count);
         count = location_of_clothes;
         // Get bitmap from URL
@@ -181,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         try{
             field.append(webserver.getArrayClothing().get(count).getPrice());
         }catch(Exception e){
-
+            Log.i(LOG_TAG, "Error: Cannot get price");
         }
 
         // Set Description
@@ -190,16 +125,16 @@ public class MainActivity extends AppCompatActivity {
         try{
             field.append(webserver.getArrayClothing().get(count).getName());
         }catch(Exception e){
-
+            Log.i(LOG_TAG, "Error: Cannot get description");
         }
     }
 
-    // Go to the detailed page and load the current bitmap image
+    // Go to the detailed page
     public void buttonToDetailed(View v){
         setContentView(R.layout.detail_main);
         iv = (ImageButton) findViewById(R.id.imageButton4);
 
-        //If from swiping page
+        // If from swiping page
         if(fromSwiping){
             bitmap.recycle();
             bitmap = getBitmapFromURL(webserver.getArrayClothing().get(location_of_clothes).getUrlImage());
@@ -227,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             field.append(webserver.getArrayClothing().get(location_of_clothes).getName());
 
         }else{
-        // From Recently liked page
+        // If from recently liked page
             bitmap.recycle();
             bitmap = getBitmapFromURL(webserver.getArrayLikedClothing().get(location_of_clothes).getUrlImage());
             iv.setImageBitmap(bitmap);
@@ -257,16 +192,11 @@ public class MainActivity extends AppCompatActivity {
 
     // Go to the swiping page
     public void buttonToSwiping(View v){
-        fromSwiping = true;                     // set to true for if going to detailed page
-        location_of_clothes = count;
+        fromSwiping = true;                     // Set to true for if going to detailed page
+        location_of_clothes = count;            // Update index
+        setContentView(R.layout.swiping_main);  // Go to swiping main
 
-        setContentView(R.layout.swiping_main);
-        /*
-        arrayClothing.clear();
-        arrayClothing = getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata");
-        */
-
-        webserver.clearClothing();
+        webserver.clearClothing();              // Refresh clothing array
         // Set checkmark image
         iv = (ImageButton) findViewById(R.id.right_image);
         iv.setImageBitmap(getBitmapFromURL("http://www.clipartbest.com/cliparts/niE/LL8/niELL86iA.png"));
@@ -275,12 +205,12 @@ public class MainActivity extends AppCompatActivity {
         iv = (ImageButton) findViewById(R.id.left_image);
         iv.setImageBitmap(getBitmapFromURL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/X_mark.svg/896px-X_mark.svg.png"));
 
-        // Set Center Image
+        // Set center Image
         iv = (ImageButton) findViewById(R.id.center_image);
         try{
             iv.setImageBitmap(getBitmapFromURL(webserver.getArrayClothing().get(count).getUrlImage()));
         }catch(Exception e){
-
+            Log.i(LOG_TAG, "Error: Cannot get bitmap for center image");
         }
 
         // Set Price
@@ -289,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             field.append(webserver.getArrayClothing().get(count).getPrice());
         }catch(Exception e){
-
+            Log.i(LOG_TAG, "Error: Cannot get price");
         }
 
         // Set Description
@@ -298,18 +228,20 @@ public class MainActivity extends AppCompatActivity {
         try {
             field.append(webserver.getArrayClothing().get(count).getName());
         }catch(Exception e){
-
+            Log.i(LOG_TAG, "Error: Cannot get description");
         }
     }
 
     // New class to connect to login button
     public void buttonFromLogin(View v){
+        // Get username string
         EditText usernameButton = (EditText)this.findViewById(R.id.usernameID);
         String username = usernameButton.getText().toString();
 
+        // Get password string
         EditText passwordButton = (EditText)this.findViewById(R.id.passwordID);
         String password = passwordButton.getText().toString();
-
+        // Get URL string and call getUser method
         String URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/authenticate/%s/%s", username, password);
         String userID = webserver.getUser(URL);
         if(!userID.equals("Invalid User/Password Combination") && !userID.equals("User Not Registered")){
@@ -323,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Get bitmap image from URL
+    // Get Bitmap image from URL
     public Bitmap getBitmapFromURL(String src){
         try{
             URL url = new URL(src);
@@ -350,17 +282,10 @@ public class MainActivity extends AppCompatActivity {
             // Go to log in page
             setContentView(R.layout.activity_main);
             return true;
-
         }else if(id == R.id.menu_liked){
             // Go to clothes liked page
-            setContentView(R.layout.clothes_liked_main);
-
-            // Pull Liked Clothing from AWS
-            /*
-            arrayLikedClothing.clear();
-            arrayLikedClothing = getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/AkshayMata");
-            */
-            webserver.clearLikedClothing();
+            setContentView(R.layout.clothes_liked_main);    // Go to clothes liked page
+            webserver.clearLikedClothing();                 // Refresh clothes array
 
             // Put all liked clothing into an array
             String[]myStringArray = new String[webserver.getArrayLikedClothing().size()];
@@ -368,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
                 myStringArray[i] = webserver.getArrayLikedClothing().get(i).getName();
             }
 
+            // Create new adapter
             ArrayAdapter<String> myAdapter=new
                     ArrayAdapter<String>(
                     this,
@@ -388,14 +314,12 @@ public class MainActivity extends AppCompatActivity {
                     buttonToDetailed(v);
                 }
             });
-
-
             return true;
         }else if(id == R.id.menu_filters){
             // Filters Page
             setContentView(R.layout.filters_main);
             Log.i(LOG_TAG, "Entered Filters");
-            //String[] myStringArray={"Shirts", "Pants", "Shoes", "Socks", "Hats", "Men's", "Women's"};
+            // Create new adapter
             ArrayAdapter<String> myAdapter=new
                     ArrayAdapter<String>(
                     this,
@@ -413,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     myList.setItemChecked(i, false);
             }
-
+            // Set OnClickListener
             myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 public void onItemClick(AdapterView parent,
@@ -425,60 +349,42 @@ public class MainActivity extends AppCompatActivity {
                     textView.setChecked(textView.isChecked());
                     Log.i(LOG_TAG, "Entered Filters OnClickItem2" + position);
                     webserver.updateArrayFiltersOnOff(position, !webserver.getArrayFiltersOnOff(position));
-                    // Implement filters option here
-
-                    if(/*textView.isChecked()*/webserver.getArrayFiltersOnOff(position)){
-
+                    // Filters options
+                    if(webserver.getArrayFiltersOnOff(position)){
                         Log.i(LOG_TAG,"isChecked");
                         if(position == 0){
-
                             webserver.updateClothingFilters("Shirts");
                         }else if(position == 1){
                             webserver.updateClothingFilters("Pants");
                         }else if(position == 2){
                             webserver.updateClothingFilters("Shoes");
-                        }
-                        else if(position == 3){
+                        }else if(position == 3){
                             webserver.updateClothingFilters("Casual");
-                        }
-                        else if(position == 4){
+                        }else if(position == 4){
                             webserver.updateClothingFilters("Hats");
-                        }
-                        else if(position == 5){
+                        }else if(position == 5){
                             webserver.updateClothingFilters("Men");
-                        }
-                        else if(position == 6){
+                        }else if(position == 6){
                             webserver.updateClothingFilters("Women");
                         }
                     }else{
                         Log.i(LOG_TAG,"isNotChecked");
-
                         if(position == 0){
-
                             webserver.removeClothingFilters("Shirts");
                         }else if(position == 1){
                             webserver.removeClothingFilters("Pants");
                         }else if(position == 2){
                             webserver.removeClothingFilters("Shoes");
-                        }
-                        else if(position == 3){
+                        }else if(position == 3){
                             webserver.removeClothingFilters("Casual");
-                        }
-                        else if(position == 4){
+                        }else if(position == 4){
                             webserver.removeClothingFilters("Hats");
-                        }
-                        else if(position == 5){
+                        }else if(position == 5){
                             webserver.removeClothingFilters("Men");
-                        }
-                        else if(position == 6){
+                        }else if(position == 6){
                             webserver.removeClothingFilters("Women");
                         }
                     }
-                    // Refresh page
-                    //setContentView(R.layout.filters_main);
-
-
-
                 }
             });
             return true;

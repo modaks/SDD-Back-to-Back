@@ -14,9 +14,7 @@ public class Models {
     private boolean[] arrayFiltersOnOff={false,false,false,false,false,false,false};
     private static final String LOG_TAG = "debugger";
 
-    // Store index for location of current clothes
-    private int index = 0;
-
+    // Constructor
     public Models(){
         arrayLikedClothing = new ArrayList<Clothing>();
         arrayClothing = new ArrayList<Clothing>();
@@ -30,7 +28,6 @@ public class Models {
     public void updateArrayFiltersOnOff(int index, boolean TF){
         arrayFiltersOnOff[index]=TF;
     }
-
 
     // Set arrays
     public void setArrayClothes(ArrayList<Clothing> clothes) {
@@ -48,9 +45,9 @@ public class Models {
         arrayLikedClothing = clothes;
     }
 
+    // Update arrays
     public void addClothes(Clothing cloth){ arrayClothing.add(cloth); }
     public void addRecentlyLiked(Clothing clothes){ arrayLikedClothing.add(clothes); }
-
 
     public void addClothes(String Maker, String Type, String Description, String UrlShop, String UrlImage, String OnSale, String Price, String PartNumber,String ObjectID, String Brand,String Name){
         Clothing cloth = new Clothing(Maker, Type, Description, UrlShop, UrlImage, OnSale, Price, PartNumber, ObjectID, Brand, Name);
@@ -60,5 +57,4 @@ public class Models {
         Clothing clothes = new Clothing(Maker, Type, Description, UrlShop, UrlImage, OnSale, Price, PartNumber, ObjectID, Brand, Name);
         arrayLikedClothing.add(clothes);
     }
-
 }

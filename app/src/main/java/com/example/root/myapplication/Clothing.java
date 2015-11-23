@@ -1,7 +1,7 @@
 package com.example.root.myapplication;
 
 /**
- * Created by root on 11/1/15.
+ *  Clothing objects
  */
 public class Clothing {
     private String maker;
@@ -16,15 +16,13 @@ public class Clothing {
     private String brand;
     private String name;
 
-
+    // Construct clothing object
     public Clothing( String Maker, String Type, String Description, String UrlShop, String UrlImage, String OnSale, String Price, String PartNumber,String ObjectID, String Brand,String Name){
         maker=Maker;
         type = Type;
         description = Description;
-
         urlShop=UrlShop;
         urlImage=UrlImage;
-
         onSale=OnSale;
         price = Price;
         partNumber=PartNumber;
@@ -35,8 +33,9 @@ public class Clothing {
 
     }
 
+    // Parse strings further
     private void parseFurther(){
-        //parse Description to 25 characters
+        // Parse Description to 25 characters
         description = description.substring(0, Math.min(description.length(), 150));
         if(description.length() == 150){
             description = description + "...";
@@ -44,19 +43,19 @@ public class Clothing {
         description = description.replace("\\n", " ");
         description = description.replace("\\r", "");
 
-        //parse Name
+        // Parse Name
         name = name.replace("'","");
         name = name.replace("\"","");
         name = name.replace("}","");
 
-        //edit url image to only have single url not multiple
+        // Edit url image to only have single url not multiple
         if(urlImage.contains("', u'")){
             String[] urlSplit = urlImage.split("', u'");
             urlImage = urlSplit[1];
         }
         urlImage = urlImage.replace("'","");
 
-        //parse type
+        // Parse type
         if(type.contains("\", u\"")){
             String[] typeSplit = type.split("\", u\"");
             type=typeSplit[1];
@@ -65,25 +64,17 @@ public class Clothing {
         type = type.replace("]","");
         type = type.replace(">","");
     }
+
+    // Return
     public String getMaker(){return maker;}
-
     public String getType(){return type;}
-
     public String getDescription(){return description;}
-
     public String getUrlShop(){return urlShop;}
-
     public String getUrlImage(){return urlImage;}
-
     public String getOnSale(){return onSale;}
-
     public String getPrice(){return price;}
-
     public String getPartNumber(){return partNumber;}
-
     public String getObjectID(){return objectID;}
-
     public String getBrand(){return brand;}
-
     public String getName(){return name;}
 }
