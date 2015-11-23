@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private int count;      // Store the location/index of the clothes array for the swiping page
     private ImageButton iv; // Initialize ImageButton for later use
     private Bitmap bitmap;  // Initialize bitmap for later use in making images
+    private String userID;
 
     // Used for Log.I debugging statments printed to logTag
     private static final String LOG_TAG = "debugger";
@@ -52,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
 
         // Initialize the webserver
-        webserver=new WebServiceAdaptor("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata");
+        String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata/%s", userID);
+        webserver = new WebServiceAdaptor(formatted_URL);
     }
 
     @Override
@@ -243,9 +245,14 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordButton.getText().toString();
         // Get URL string and call getUser method
         String URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/authenticate/%s/%s", username, password);
-        String userID = webserver.getUser(URL);
+        userID = webserver.getUser(URL);
+        webserver.updateUserID(userID);
         if(!userID.equals("Invalid User/Password Combination") && !userID.equals("User Not Registered")){
             Log.i(LOG_TAG, userID);
+
+            String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata/%s", userID);
+            webserver.updateWebServerAdaptor(formatted_URL);
+
             buttonToSwiping(v);
         }else{
             Log.i(LOG_TAG, "Error, invalid username or password");
