@@ -17,4 +17,4 @@
         android:id="@+id/menu_logout"
         android:title="Logout" />
 </menu>
-<!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/menu/menu_main.xml -->
+<!-- From: file:/home/modaks/Android_Projects/SDD-Back-to-Back/app/src/main/res/menu/menu_main.xml -->
