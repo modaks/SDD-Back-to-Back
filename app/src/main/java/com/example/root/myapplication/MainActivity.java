@@ -339,8 +339,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -441,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
                             webserver.updateClothingFilters("Shoes");
                         }
                         else if(position == 3){
-                            webserver.updateClothingFilters("Socks");
+                            webserver.updateClothingFilters("Casual");
                         }
                         else if(position == 4){
                             webserver.updateClothingFilters("Hats");
@@ -464,7 +462,7 @@ public class MainActivity extends AppCompatActivity {
                             webserver.removeClothingFilters("Shoes");
                         }
                         else if(position == 3){
-                            webserver.removeClothingFilters("Socks");
+                            webserver.removeClothingFilters("Casual");
                         }
                         else if(position == 4){
                             webserver.removeClothingFilters("Hats");

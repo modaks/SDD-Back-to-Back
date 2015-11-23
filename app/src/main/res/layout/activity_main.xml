@@ -14,7 +14,9 @@
         android:id="@+id/usernameID"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/passwordID"
-        android:layout_alignStart="@+id/passwordID" />
+        android:layout_alignStart="@+id/passwordID"
+        android:singleLine="true"
+        android:selectAllOnFocus="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -25,7 +27,9 @@
         android:textIsSelectable="false"
         android:text="Password"
         android:layout_below="@+id/usernameID"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:selectAllOnFocus="true"
+        android:singleLine="true" />
 
     <TextView
         android:layout_width="wrap_content"

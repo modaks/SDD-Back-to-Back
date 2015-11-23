@@ -10,7 +10,7 @@ public class Models {
     // Private variables
     private ArrayList<Clothing> arrayClothing;
     private ArrayList<Clothing> arrayLikedClothing;
-    private String[] myStringArrayFilters={"Shirts", "Pants", "Shoes", "Socks", "Hats", "Men's", "Women's"};
+    private String[] myStringArrayFilters={"Shirts", "Pants", "Shoes", "Casual", "Hats", "Men's", "Women's"};
     private boolean[] arrayFiltersOnOff={false,false,false,false,false,false,false};
     private static final String LOG_TAG = "debugger";
 
@@ -20,7 +20,6 @@ public class Models {
     public Models(){
         arrayLikedClothing = new ArrayList<Clothing>();
         arrayClothing = new ArrayList<Clothing>();
-
     }
 
     // Return arrays
@@ -35,12 +34,17 @@ public class Models {
 
     // Set arrays
     public void setArrayClothes(ArrayList<Clothing> clothes) {
-        Log.i(LOG_TAG, "Updating Model");
-        arrayClothing.clear();
+        Log.i(LOG_TAG, "Updating Model, size of model:");
+        if(arrayClothing.size() > 0){
+            arrayClothing.clear();
+        }
         arrayClothing = clothes;
+        Log.i(LOG_TAG, Integer.toString(clothes.size()));
     }
     public void setArrayLikedClothes(ArrayList<Clothing> clothes){
-        arrayLikedClothing.clear();
+        if(arrayLikedClothing.size() > 0) {
+            arrayLikedClothing.clear();
+        }
         arrayLikedClothing = clothes;
     }
 

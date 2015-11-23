@@ -37,19 +37,19 @@ public class WebServiceAdaptor {
     public String[] getMyStringArrayFilters(){return model.getMyStringArrayFilters();}
     public boolean getArrayFiltersOnOff(int index){return model.getArrayFiltersOnOff()[index];}
     public void updateArrayFiltersOnOff(int index, boolean TF){
-        model.updateArrayFiltersOnOff(index,TF);
+        model.updateArrayFiltersOnOff(index, TF);
     }
 
     // Update clothing array when we press on the filters
     public void updateClothingFilters(String filterOption){
         clothesFilterURL=new StringBuilder().append(clothesFilterURL).append(filterOption).append(",").toString();
         //model.setArrayClothes(getClothing(filterOption));
-        Log.i(LOG_TAG, "Updating filters" + clothesFilterURL);
+        Log.i(LOG_TAG, "Updating filters " + clothesFilterURL);
     }
     public void removeClothingFilters(String filterOption){
         clothesFilterURL=clothesFilterURL.replace(filterOption+",","");
         //model.setArrayClothes(getClothing(filterOption));
-        Log.i(LOG_TAG, "Updating filters"+clothesFilterURL);
+        Log.i(LOG_TAG, "Updating filters "+clothesFilterURL);
     }
 
     // Get User from URL
@@ -82,7 +82,9 @@ public class WebServiceAdaptor {
     public ArrayList<Clothing> getClothing(final String urlAWS){
         //create return variable for this function
         temp_array = new ArrayList<Clothing>();
-        temp_array.clear();
+        if(temp_array.size() > 0){
+            temp_array.clear();
+        }
 
         // Create new thread since we are accessing Network
         new Thread(){
@@ -199,8 +201,9 @@ public class WebServiceAdaptor {
     public void clearClothing(){
         if(clothesFilterURL.charAt(clothesFilterURL.length() - 1)=='/')
             model.setArrayClothes(getClothing("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/AkshayMata"));
-        else
-            model.setArrayClothes(getClothing(clothesFilterURL));
+        else{
+            model.setArrayClothes(getClothing(clothesFilterURL.substring(0, clothesFilterURL.length() - 1)));   // Make sure last comma is gone
+        }
         Log.i(LOG_TAG,clothesFilterURL);
     }
 
