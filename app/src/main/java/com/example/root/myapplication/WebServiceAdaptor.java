@@ -19,6 +19,7 @@ public class WebServiceAdaptor {
     private static final String LOG_TAG = "debugger";
     private Models model;
     private String clothesFilterURL;
+    private String userString;
 
 
     public WebServiceAdaptor(String AllClothes/*String LikedClothes*/){
@@ -51,6 +52,33 @@ public class WebServiceAdaptor {
         Log.i(LOG_TAG, "Updating filters"+clothesFilterURL);
     }
 
+    // Get User from URL
+    public String getUser(final String urlAWS){
+        //create return variable for this function
+        // Create new thread since we are accessing Network
+        new Thread(){
+            public void run() {
+                //string will contain allJson text
+                String link="";
+                try{
+                    //retreiving json info regarding all clothes
+                    link = getHTML(urlAWS);
+                }catch(Exception e){
+                    Log.i(LOG_TAG, "Failed to retrieve Jsoin string from onCreate");
+                }
+                userString = link;
+            }
+        }.start();
+        // Sleep for .4 seconds to allow thread to catch up
+        try {
+            TimeUnit.MILLISECONDS.sleep(1000);
+        } catch (InterruptedException e){
+            Log.i(LOG_TAG,"Failed to sleep");
+        }
+        return userString;
+    }
+
+    // Get Clothing Objects from URL
     public ArrayList<Clothing> getClothing(final String urlAWS){
         //create return variable for this function
         temp_array = new ArrayList<Clothing>();

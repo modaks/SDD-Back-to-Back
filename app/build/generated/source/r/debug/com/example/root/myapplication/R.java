@@ -1608,8 +1608,6 @@ containing a value of this type.
         public static final int decor_content_parent=0x7f0c003c;
         public static final int default_activity_button=0x7f0c0027;
         public static final int disableHome=0x7f0c000c;
-        public static final int editText=0x7f0c004d;
-        public static final int editText3=0x7f0c004e;
         public static final int edit_query=0x7f0c0040;
         public static final int end=0x7f0c0019;
         public static final int end_padder=0x7f0c006a;
@@ -1639,6 +1637,7 @@ containing a value of this type.
         public static final int none=0x7f0c000e;
         public static final int normal=0x7f0c000a;
         public static final int parentPanel=0x7f0c002b;
+        public static final int passwordID=0x7f0c004e;
         public static final int progress_circular=0x7f0c0005;
         public static final int progress_horizontal=0x7f0c0006;
         public static final int radio=0x7f0c0038;
@@ -1680,6 +1679,7 @@ containing a value of this type.
         public static final int topPanel=0x7f0c002c;
         public static final int up=0x7f0c0008;
         public static final int useLogo=0x7f0c0012;
+        public static final int usernameID=0x7f0c004d;
         public static final int withText=0x7f0c001f;
         public static final int wrap_content=0x7f0c0020;
     }

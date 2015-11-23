@@ -11,20 +11,20 @@
         android:inputType="textPersonName"
         android:text="Username"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/usernameID"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/editText3"
-        android:layout_alignStart="@+id/editText3" />
+        android:layout_alignLeft="@+id/passwordID"
+        android:layout_alignStart="@+id/passwordID" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/passwordID"
         android:textIsSelectable="false"
         android:text="Password"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/usernameID"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="The Fitting Room"
         android:id="@+id/textView2"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/usernameID"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp" />
 
@@ -42,9 +42,9 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/button"
-        android:layout_below="@+id/editText3"
+        android:layout_below="@+id/passwordID"
         android:layout_centerHorizontal="true"
-        android:onClick="buttonToSwiping" />
+        android:onClick="buttonFromLogin" />
 
 </RelativeLayout>
-<!-- From: file:/home/modaks/Android_Projects/SDD-Back-to-Back/app/src/main/res/layout/activity_main.xml -->
+<!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/activity_main.xml -->

@@ -467,8 +467,6 @@ int id customPanel 0x7f0c0032
 int id decor_content_parent 0x7f0c003c
 int id default_activity_button 0x7f0c0027
 int id disableHome 0x7f0c000c
-int id editText 0x7f0c004d
-int id editText3 0x7f0c004e
 int id edit_query 0x7f0c0040
 int id end 0x7f0c0019
 int id end_padder 0x7f0c006a
@@ -498,6 +496,7 @@ int id never 0x7f0c001e
 int id none 0x7f0c000e
 int id normal 0x7f0c000a
 int id parentPanel 0x7f0c002b
+int id passwordID 0x7f0c004e
 int id progress_circular 0x7f0c0005
 int id progress_horizontal 0x7f0c0006
 int id radio 0x7f0c0038
@@ -539,6 +538,7 @@ int id title_template 0x7f0c002d
 int id topPanel 0x7f0c002c
 int id up 0x7f0c0008
 int id useLogo 0x7f0c0012
+int id usernameID 0x7f0c004d
 int id withText 0x7f0c001f
 int id wrap_content 0x7f0c0020
 int integer abc_config_activityDefaultDur 0x7f0a0001

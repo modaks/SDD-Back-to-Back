@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -250,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
             // Get Name
             field = (TextView) findViewById(R.id.textView7);
             field.setText("");
-            field.append(webserver.getArrayClothing().get(location_of_clothes).getName());
+            field.append(webserver.getArrayLikedClothing().get(location_of_clothes).getName());
         }
     }
 
@@ -301,6 +302,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // New class to connect to login button
+    public void buttonFromLogin(View v){
+        EditText usernameButton = (EditText)this.findViewById(R.id.usernameID);
+        String username = usernameButton.getText().toString();
+
+        EditText passwordButton = (EditText)this.findViewById(R.id.passwordID);
+        String password = passwordButton.getText().toString();
+
+        String URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/authenticate/%s/%s", username, password);
+        String userID = webserver.getUser(URL);
+        if(!userID.equals("Invalid User/Password Combination") && !userID.equals("User Not Registered")){
+            Log.i(LOG_TAG, userID);
+            buttonToSwiping(v);
+        }else{
+            Log.i(LOG_TAG, "Error, invalid username or password");
+        }
+    }
+
     // Get bitmap image from URL
     public Bitmap getBitmapFromURL(String src){
         try{
@@ -317,6 +336,8 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -401,7 +422,7 @@ public class MainActivity extends AppCompatActivity {
                                         long id) {
                     Log.i(LOG_TAG, "Entered Filters OnClickItem");
                     CheckedTextView textView = (CheckedTextView) v;
-                    textView.setChecked(!textView.isChecked());
+                    textView.setChecked(textView.isChecked());
                     Log.i(LOG_TAG, "Entered Filters OnClickItem2" + position);
                     webserver.updateArrayFiltersOnOff(position, !webserver.getArrayFiltersOnOff(position));
                     // Implement filters option here
@@ -453,6 +474,8 @@ public class MainActivity extends AppCompatActivity {
                             webserver.removeClothingFilters("Women");
                         }
                     }
+                    // Refresh page
+                    //setContentView(R.layout.filters_main);
 
 
 
