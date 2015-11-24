@@ -49,12 +49,18 @@ public class Models {
     public void addClothes(Clothing cloth){ arrayClothing.add(cloth); }
     public void addRecentlyLiked(Clothing clothes){ arrayLikedClothing.add(clothes); }
 
-    public void addClothes(String Maker, String Type, String Description, String UrlShop, String UrlImage, String OnSale, String Price, String PartNumber,String ObjectID, String Brand,String Name){
-        Clothing cloth = new Clothing(Maker, Type, Description, UrlShop, UrlImage, OnSale, Price, PartNumber, ObjectID, Brand, Name);
+    public void addClothes(String Maker, String Type, String Description, String UrlShop,
+                           String UrlImage, String OnSale, String Price, String PartNumber,
+                           String ObjectID, String Brand,String Name){
+        Clothing cloth = new Clothing
+                (Maker, Type, Description, UrlShop, UrlImage, OnSale, Price, PartNumber, ObjectID, Brand, Name);
         arrayClothing.add(cloth);
     }
-    public void addRecentlyLiked(String Maker, String Type, String Description, String UrlShop, String UrlImage, String OnSale, String Price, String PartNumber,String ObjectID, String Brand,String Name){
-        Clothing clothes = new Clothing(Maker, Type, Description, UrlShop, UrlImage, OnSale, Price, PartNumber, ObjectID, Brand, Name);
+    public void addRecentlyLiked(String Maker, String Type, String Description, String UrlShop,
+                                 String UrlImage, String OnSale, String Price, String PartNumber,
+                                 String ObjectID, String Brand,String Name){
+        Clothing clothes = new Clothing(Maker, Type, Description, UrlShop, UrlImage, OnSale,
+                Price, PartNumber, ObjectID, Brand, Name);
         arrayLikedClothing.add(clothes);
     }
 }

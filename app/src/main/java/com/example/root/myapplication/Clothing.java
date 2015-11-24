@@ -17,7 +17,8 @@ public class Clothing {
     private String name;
 
     // Construct clothing object
-    public Clothing( String Maker, String Type, String Description, String UrlShop, String UrlImage, String OnSale, String Price, String PartNumber,String ObjectID, String Brand,String Name){
+    public Clothing( String Maker, String Type, String Description, String UrlShop, String UrlImage,
+                     String OnSale, String Price, String PartNumber,String ObjectID, String Brand,String Name){
         maker=Maker;
         type = Type;
         description = Description;

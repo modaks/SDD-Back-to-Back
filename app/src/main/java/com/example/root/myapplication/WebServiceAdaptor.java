@@ -26,7 +26,10 @@ public class WebServiceAdaptor {
 
         model = new Models();
         model.setArrayClothes(getClothing(AllClothes));
-        String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/%s/%s", username, userID);
+        String formatted_URL =
+                String.format
+                        ("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/%s/%s",
+                        username, userID);
         clothesFilterURL=new StringBuilder().append(formatted_URL).append("/").toString();
         model.setArrayLikedClothes(getClothing(formatted_URL));
     }
@@ -35,7 +38,10 @@ public class WebServiceAdaptor {
         clothesFilterURL=new StringBuilder().append(AllClothes).append("/").toString();
         model = new Models();
         model.setArrayClothes(getClothing(AllClothes));
-        String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/%s/%s", username, userID);
+        String formatted_URL =
+                String.format
+                        ("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/%s/%s",
+                                username, userID);
         model.setArrayLikedClothes(getClothing(formatted_URL));
     }
 
@@ -59,9 +65,12 @@ public class WebServiceAdaptor {
     // Update or remove clothing array when we press on the filters options
     public void updateClothingFilters(String filterOption){
         if(clothesFilterURL.charAt(clothesFilterURL.length() - 1)=='/') {
-            clothesFilterURL = new StringBuilder().append(clothesFilterURL).append(filterOption).toString();
+            clothesFilterURL =
+                    new StringBuilder().append(clothesFilterURL).append(filterOption).toString();
         }else {
-            clothesFilterURL = new StringBuilder().append(clothesFilterURL).append(",").append(filterOption).toString();
+            clothesFilterURL =
+                    new StringBuilder().append(clothesFilterURL)
+                            .append(",").append(filterOption).toString();
         }
         Log.i(LOG_TAG, "Updating filters " + clothesFilterURL);
     }
@@ -126,12 +135,19 @@ public class WebServiceAdaptor {
                     // Tokens_content temporarily stores content of each individual token
                     String[] tokens_content = null;
                     // Delims will be used to parse tokens into individual content
-                    String delims1 = "u'merchant': u'|\\', u'category': |\\, u'description': u\"|\\\", u'url': u'|\\', u'image': \\[u'|\\'\\], u'on_sale': |\\, u'price': |\\, u'part_number': u'|\\', u'_id': ObjectId\\('|\\'\\), u'brand': u'|\\', u'name': u|\\, u'description': u'|\\', u'url': u'";
+                    String delims1 = "u'merchant': u'|\\', u'category': |\\, u'description': u\"" +
+                            "|\\\", u'url': u'|\\', u'image': \\[u'|\\'\\], u'on_sale': " +
+                            "|\\, u'price': |\\, u'part_number': u'|\\', u'_id': ObjectId\\('" +
+                            "|\\'\\), u'brand': u'|\\', u'name': u|\\, u'description': u'" +
+                            "|\\', u'url': u'";
 
                     for (int i = 0; i < tokens.length; i++) {
                         tokens_content = tokens[i].split(delims1);
                         if (tokens_content.length == 12) {
-                            temp_array.add(new Clothing(tokens_content[1], tokens_content[2], tokens_content[3], tokens_content[4], tokens_content[5], tokens_content[6], tokens_content[7], tokens_content[8], tokens_content[9], tokens_content[10], tokens_content[11]));
+                            temp_array.add(new Clothing(tokens_content[1], tokens_content[2],
+                                    tokens_content[3], tokens_content[4], tokens_content[5],
+                                    tokens_content[6], tokens_content[7], tokens_content[8],
+                                    tokens_content[9], tokens_content[10], tokens_content[11]));
                         }
                     }
                 }
@@ -171,7 +187,9 @@ public class WebServiceAdaptor {
 
     // When user dislikes clothing
     public int dislike(int count){
-        String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/%s/%s/", username, userID);
+        String formatted_URL = String.format
+                ("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/%s/%s/",
+                        username, userID);
         StringBuffer link = new StringBuffer(formatted_URL);
 
         try{
@@ -201,7 +219,9 @@ public class WebServiceAdaptor {
     // When user likes clothing
     public int like(int count){
         // Write to getLikedProducts page
-        String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/%s/%s/", username, userID);
+        String formatted_URL = String.format
+                ("http://ec2-54-210-37-207.compute-1.amazonaws.com/updateLikedProducts/%s/%s/",
+                        username, userID);
 
         StringBuffer link = new StringBuffer(formatted_URL);
         try{
@@ -230,7 +250,9 @@ public class WebServiceAdaptor {
     // Refresh clothing array
     public void clearClothing(){
         if(clothesFilterURL.charAt(clothesFilterURL.length() - 1)=='/'){
-            String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/%s/%s", username, userID);
+            String formatted_URL
+                    = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/%s/%s",
+                    username, userID);
             model.setArrayClothes(getClothing(formatted_URL));
         }else{
             model.setArrayClothes(getClothing(clothesFilterURL.substring(0, clothesFilterURL.length() - 1)));   // Make sure last comma is gone
@@ -240,7 +262,8 @@ public class WebServiceAdaptor {
 
     // Refresh liked clothing array
     public void clearLikedClothing(){
-        String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/%s/%s", username, userID);
+        String formatted_URL = String.format
+                ("http://ec2-54-210-37-207.compute-1.amazonaws.com/getLikedProducts/%s/%s", username, userID);
         model.setArrayLikedClothes(getClothing(formatted_URL));
     }
 }

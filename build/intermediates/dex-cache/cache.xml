@@ -2,32 +2,32 @@
 <items version="2" >
 
     <item
-        jar="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jar="/home/modaks/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-f57be78ca5fdb2e98113320bb1f15feb183eae27.jar" />
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/pre-dexed/release/support-annotations-23.0.1-bb6cfe57236ede2d24a8f840f842b99549183cdc.jar" />
     </item>
     <item
         jar="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/pre-dexed/debug/classes-e4033758ec283a7d03142442d97787d50f57ea1e.jar" />
+        <dex dex="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/pre-dexed/release/classes-e4033758ec283a7d03142442d97787d50f57ea1e.jar" />
     </item>
     <item
         jar="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/pre-dexed/debug/classes-22bffded86a54205a21ac18b356d55d3dc1e3b03.jar" />
+        <dex dex="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/pre-dexed/release/classes-22bffded86a54205a21ac18b356d55d3dc1e3b03.jar" />
     </item>
     <item
-        jar="/home/modaks/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jar="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-bb6cfe57236ede2d24a8f840f842b99549183cdc.jar" />
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/home/modaks/Android_Projects/SDD-Back-to-Back/app/build/intermediates/pre-dexed/release/internal_impl-23.0.1-f57be78ca5fdb2e98113320bb1f15feb183eae27.jar" />
     </item>
 
 </items>

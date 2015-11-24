@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         bitmap = getBitmapFromURL("http://loololi.com/wp-content/uploads/2013/09/Scarves-175-1.jpg");
 
         // Initialize the webserver
-        String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/%s/%s", username, userID);
+        String formatted_URL = String.format
+                ("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/%s/%s", username, userID);
         webserver = new WebServiceAdaptor(formatted_URL);
     }
 
@@ -205,7 +206,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Set x image
         iv = (ImageButton) findViewById(R.id.left_image);
-        iv.setImageBitmap(getBitmapFromURL("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/X_mark.svg/896px-X_mark.svg.png"));
+        iv.setImageBitmap(getBitmapFromURL
+                ("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/X_mark.svg/896px-X_mark.svg.png"));
 
         // Set center Image
         iv = (ImageButton) findViewById(R.id.center_image);
@@ -244,14 +246,16 @@ public class MainActivity extends AppCompatActivity {
         EditText passwordButton = (EditText)this.findViewById(R.id.passwordID);
         String password = passwordButton.getText().toString();
         // Get URL string and call getUser method
-        String URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/authenticate/%s/%s", username, password);
+        String URL = String.format
+                ("http://ec2-54-210-37-207.compute-1.amazonaws.com/authenticate/%s/%s", username, password);
         userID = webserver.getUser(URL);
         webserver.updateUsername(username);
         webserver.updateUserID(userID);
         if(!userID.equals("Invalid User/Password Combination") && !userID.equals("User Not Registered")){
             Log.i(LOG_TAG, userID);
 
-            String formatted_URL = String.format("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/%s/%s", username, userID);
+            String formatted_URL = String.format
+                    ("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/%s/%s", username, userID);
             webserver.updateWebServerAdaptor(formatted_URL);
 
             buttonToSwiping(v);
