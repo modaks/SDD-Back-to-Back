@@ -106,7 +106,15 @@ public class WebServiceAdaptor {
         }
         return userString;
     }
+    public String[] parser(String input){
+        String delims1 = "u'merchant': u'|\\', u'category': |\\, u'description': u\"" +
+                "|\\\", u'url': u'|\\', u'image': \\[u'|\\'\\], u'on_sale': " +
+                "|\\, u'price': |\\, u'part_number': u'|\\', u'_id': ObjectId\\('" +
+                "|\\'\\), u'brand': u'|\\', u'name': u|\\, u'description': u'" +
+                "|\\', u'url': u'";
+        return input.split(delims1);
 
+    }
     // Get Clothing Objects from URL
     public ArrayList<Clothing> getClothing(final String urlAWS){
         // Create return variable for this function
@@ -135,14 +143,15 @@ public class WebServiceAdaptor {
                     // Tokens_content temporarily stores content of each individual token
                     String[] tokens_content = null;
                     // Delims will be used to parse tokens into individual content
-                    String delims1 = "u'merchant': u'|\\', u'category': |\\, u'description': u\"" +
+                   /* String delims1 = "u'merchant': u'|\\', u'category': |\\, u'description': u\"" +
                             "|\\\", u'url': u'|\\', u'image': \\[u'|\\'\\], u'on_sale': " +
                             "|\\, u'price': |\\, u'part_number': u'|\\', u'_id': ObjectId\\('" +
                             "|\\'\\), u'brand': u'|\\', u'name': u|\\, u'description': u'" +
-                            "|\\', u'url': u'";
+                            "|\\', u'url': u'";*/
 
                     for (int i = 0; i < tokens.length; i++) {
-                        tokens_content = tokens[i].split(delims1);
+                        tokens_content = parser(tokens[i]);
+                        Log.i(LOG_TAG, tokens[i]);
                         if (tokens_content.length == 12) {
                             temp_array.add(new Clothing(tokens_content[1], tokens_content[2],
                                     tokens_content[3], tokens_content[4], tokens_content[5],
