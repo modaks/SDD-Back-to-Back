@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -159,10 +161,15 @@ public class MainActivity extends AppCompatActivity {
             field = (TextView) findViewById(R.id.Description);
             field.append(webserver.getArrayClothing().get(location_of_clothes).getDescription());
 
+
+            // Get Hyperlink
+            String temp_url;
+            temp_url = new StringBuilder().append("<a href=\"").append(webserver.getArrayClothing().get(location_of_clothes).getUrlShop()).append("\">").append(webserver.getArrayClothing().get(location_of_clothes).getName()).append("</a>").toString();
+
             // Get Name
-            field = (TextView) findViewById(R.id.textView7);
-            field.setText("");
-            field.append(webserver.getArrayClothing().get(location_of_clothes).getName());
+            field = (TextView) findViewById(R.id.title);
+            field.setText(Html.fromHtml(temp_url));
+            field.setMovementMethod(LinkMovementMethod.getInstance());
 
         }else{
         // If from recently liked page
@@ -186,10 +193,14 @@ public class MainActivity extends AppCompatActivity {
             field = (TextView) findViewById(R.id.Description);
             field.append(webserver.getArrayLikedClothing().get(location_of_clothes).getDescription());
 
+            // Get Hyperlink
+            String temp_url;
+            temp_url = new StringBuilder().append("<a href=\"").append(webserver.getArrayLikedClothing().get(location_of_clothes).getUrlShop()).append("\">").append(webserver.getArrayLikedClothing().get(location_of_clothes).getName()).append("</a>").toString();
+
             // Get Name
-            field = (TextView) findViewById(R.id.textView7);
-            field.setText("");
-            field.append(webserver.getArrayLikedClothing().get(location_of_clothes).getName());
+            field = (TextView) findViewById(R.id.title);
+            field.setText(Html.fromHtml(temp_url));
+            field.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 
