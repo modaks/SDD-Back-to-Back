@@ -66,7 +66,7 @@ public class Clothing {
         type = type.replace(">","");
     }
 
-    // Return
+    // Return private variables
     public String getMaker(){return maker;}
     public String getType(){return type;}
     public String getDescription(){return description;}
@@ -78,4 +78,39 @@ public class Clothing {
     public String getObjectID(){return objectID;}
     public String getBrand(){return brand;}
     public String getName(){return name;}
+
+    // Update variables
+    public void updateMaker(String Maker){
+        maker = Maker;
+    }
+    public void updateType(String Type){
+        type = Type;
+    }
+    public void updateDescription(String Description){
+        description = Description;
+    }
+    public void updateUrlShop(String UrlShop){
+        urlShop = UrlShop;
+    }
+    public void updateUrlImage(String UrlImage){
+        urlImage = UrlImage;
+    }
+    public void updateOnSale(String Onsale){
+        onSale = Onsale;
+    }
+    public void updatePrice(String Price){
+        price = Price;
+    }
+    public void updatePartNumber(String PartNumber){
+        partNumber = PartNumber;
+    }
+    public void updateObjectID(String ObjectID){
+        objectID = ObjectID;
+    }
+    public void updateBrand(String Brand){
+        brand = Brand;
+    }
+    public void updateName(String Name){
+        name = Name;
+    }
 }
