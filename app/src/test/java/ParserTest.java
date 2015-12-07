@@ -57,4 +57,23 @@ public class ParserTest {
         assertEquals(test_clothing.getName().compareTo("Name_Name"), 0);
 
     }
+    public void getClothingTest(clothing[] AllClothes) {
+        model = new Models();
+        model.setArrayClothes(getClothing(AllClothes));
+        assertThat(model.getArrayClothes().length==47);
+        assertThat(model.getArrayLikedClothes().length == 10);
+
+
+    }
+
+    public void getClothingTest(clothing[] AllClothes) {
+        model = new Models();
+        model.setArrayClothes(getClothing(AllClothes));
+        assertThat(model. model.getMyStringArrayFilters()=="Men"||model. model.getMyStringArrayFilters()=="Women");
+    }
+
+    public void getHtmlTest () {
+        assertNull(WebServiceAdaptor.getHTML("http://ec2-54-210-37-207.compute-1.amazonaws.com/getProducts/%s/%s"));
+    }
+
 }

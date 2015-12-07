@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#E9E3B4">
 
     <ImageButton
         android:layout_width="220dp"
@@ -61,4 +62,4 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-</RelativeLayout><!-- From: file:/root/AndroidStudioProjects/SDD-Back-to-Back/app/src/main/res/layout/swiping_main.xml -->
+</RelativeLayout><!-- From: file:/home/modaks/Android_Projects/SDD-Back-to-Back/app/src/main/res/layout/swiping_main.xml -->
